@@ -13,19 +13,21 @@ export class Attack extends Skill {
 	}
 
 	protected OnStartClient(): void {
-		const origin = new Vector3(0, 3, 0);
-		const forwardDirection = new Vector3(0, 0, 1);
+		// Define the starting CFrame (position and orientation)
+		const originCFrame = new CFrame(new Vector3(0, 5, 0), new Vector3(0, 5, 1)); // Facing forward
+
+		// Cast rays in an arc
 		const results = castArcRay({
-			origin: origin,
-			direction: forwardDirection,
-			angle: 135, // Total arc angle (degrees)
+			cframe: originCFrame, // Starting CFrame
+			angle: 45, // Total arc angle (degrees)
 			range: 5, // Max range of each ray
 			segments: 10, // Number of rays in the arc
+			ignoreList: [game.GetService("Players").LocalPlayer.Character!], // Optional
 		});
 
+		// Process the results
 		for (const result of results) {
-			Visualize.point(origin);
-			Visualize.line(origin, result.Position);
+			print("Hit:", result.Instance.Name, "at", result.Position);
 		}
 	}
 }

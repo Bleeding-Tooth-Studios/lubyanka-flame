@@ -2,8 +2,7 @@ import { Workspace } from "@rbxts/services";
 import { Visualize } from "@rbxts/visualize";
 
 interface ArcRayParams {
-	origin: Vector3; // Starting position of the arc
-	direction: Vector3; // Forward direction
+	cframe: CFrame; // The CFrame representing the origin and orientation of the arc
 	angle: number; // Total arc angle in degrees
 	range: number; // Range of each ray
 	segments: number; // Number of rays in the arc
@@ -11,27 +10,26 @@ interface ArcRayParams {
 }
 
 /**
- * Casts rays in an arc and returns the hits.
+ * Casts rays in an arc using CFrame input and returns the results.
  */
 export function castArcRay(params: ArcRayParams): RaycastResult[] {
 	const results: RaycastResult[] = [];
 	const raycastParams = new RaycastParams();
 	raycastParams.FilterDescendantsInstances = params.ignoreList ?? [];
-	raycastParams.FilterType = Enum.RaycastFilterType.Exclude;
+	raycastParams.FilterType = Enum.RaycastFilterType.Blacklist;
 
 	const halfAngle = params.angle / 2;
 	const angleStep = params.angle / (params.segments - 1);
 
 	for (let i = 0; i < params.segments; i++) {
-		// Calculate the direction of each ray
-		const angleOffset = -halfAngle + i * angleStep;
-		const rotatedDirection = params.direction.mul(CFrame.Angles(0, math.rad(angleOffset), 0).LookVector);
-		const rayDestination = params.origin.add(rotatedDirection.mul(params.range));
+		// Calculate the direction for each ray
+		const angleOffset = -halfAngle + i * angleStep; // Spread rays across the arc
+		const rotatedCFrame = params.cframe.mul(CFrame.Angles(0, math.rad(angleOffset), 0));
+		const direction = rotatedCFrame.LookVector.mul(params.range); // Scale direction by range
 
 		// Cast the ray
-		const rayResult = Workspace.Raycast(params.origin, rayDestination.sub(params.origin), raycastParams);
-		print(`Some things you can't change: ${angleOffset}`);
-		Visualize.line(params.origin, rayDestination);
+		const rayResult = Workspace.Raycast(params.cframe.Position, direction, raycastParams);
+		Visualize.vector(params.cframe.Position, direction);
 		if (rayResult) {
 			results.push(rayResult);
 		}
