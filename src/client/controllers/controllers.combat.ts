@@ -1,13 +1,16 @@
 import { Controller, OnRender, OnStart } from "@flamework/core";
-import { Players, ReplicatedStorage, UserInputService } from "@rbxts/services";
+import { Debris, Players, ReplicatedStorage, UserInputService } from "@rbxts/services";
 import { Character, CreateClient } from "@rbxts/wcs";
 import { MOVESETS_FOLDER } from "shared/combat/movesets";
 import { SKILLS_FOLDER } from "shared/combat/skills";
 import { Attack } from "shared/combat/skills/skills.attack";
 import { STATUSEFFECTS_FOLDER } from "shared/combat/status-effects";
 import { InputController } from "./controllers.input";
-import { castCameraArc } from "client/util/util.camera-arc";
+import { castCameraArc } from "shared/util/util.camera-arc";
 import { Visualize } from "@rbxts/visualize";
+import { Make } from "@rbxts/altmake";
+import { size } from "@rbxts/gamejoy/out/Misc/Aliases";
+import { createBloodParticle } from "shared/util/util.blood-particle";
 
 function getCurrentWCS_Character() {
 	print("scannig");
@@ -37,17 +40,21 @@ export class CombatController implements OnStart, OnRender {
 			character.GetSkillFromConstructor(Attack)?.Start();
 
 			// Cast rays in an arc
-			const results = castCameraArc(
+			castCameraArc(
 				{
-					angleX: 45,
-					angleY: 45, // Total arc angle (degrees)
-					range: 5, // Max range of each ray
-					segments: 10, // Number of rays in the arc
-					ignoreList: [game.GetService("Players").LocalPlayer.Character!], // Optional
+					angle: [45, 45],
+					range: 5,
+					segments: 10,
+					ignoreList: [game.GetService("Players").LocalPlayer.Character!],
+					time: 0.5,
 				},
 				(result) => {
-					wait(0.02);
-					Visualize.point(result.Position);
+					Visualize.point(result.Position, Color3.fromRGB(255, 255, 0));
+				},
+				(result, humanoid) => {
+					Visualize.point(result.Position, Color3.fromRGB(255, 0, 0));
+					createBloodParticle(result.Position, 20, 25);
+					humanoid.TakeDamage(25);
 				},
 			);
 		});
