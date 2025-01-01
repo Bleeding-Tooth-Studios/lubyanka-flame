@@ -6,8 +6,8 @@ import { SKILLS_FOLDER } from "shared/combat/skills";
 import { Attack } from "shared/combat/skills/skills.attack";
 import { STATUSEFFECTS_FOLDER } from "shared/combat/status-effects";
 import { InputController } from "./controllers.input";
+import { castCameraArc } from "client/util/util.camera-arc";
 import { Visualize } from "@rbxts/visualize";
-import { castArcRay } from "shared/util/util.arc-ray";
 
 function getCurrentWCS_Character() {
 	print("scannig");
@@ -35,6 +35,21 @@ export class CombatController implements OnStart, OnRender {
 			if (!character) error("No WCS handle found for this character");
 
 			character.GetSkillFromConstructor(Attack)?.Start();
+
+			// Cast rays in an arc
+			const results = castCameraArc(
+				{
+					angleX: 45,
+					angleY: 45, // Total arc angle (degrees)
+					range: 5, // Max range of each ray
+					segments: 10, // Number of rays in the arc
+					ignoreList: [game.GetService("Players").LocalPlayer.Character!], // Optional
+				},
+				(result) => {
+					wait(0.02);
+					Visualize.point(result.Position);
+				},
+			);
 		});
 	}
 
