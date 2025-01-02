@@ -1,7 +1,7 @@
 import { CenturionType, Command, CommandContext, Group, Register } from "@rbxts/centurion";
 
 @Register()
-class DevCommand {
+export class DevCommand {
 	@Command({
 		name: "test",
 		description: "Prints 'test' + string argument to the console",

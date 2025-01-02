@@ -42,6 +42,7 @@
 		"@rbxts/melody": "^0.3.4",
 		"@rbxts/pretty-react-hooks": "^0.6.1",
 		"@rbxts/promise-character": "^1.0.3",
+		"@rbxts/raycast-hitbox": "^4.0.1-ts.1",
 		"@rbxts/react": "^17.2.3",
 		"@rbxts/react-charm": "^0.1.1",
 		"@rbxts/react-roblox": "^17.2.3",

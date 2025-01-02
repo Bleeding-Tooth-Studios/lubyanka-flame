@@ -3,7 +3,7 @@ import { subtitlesQueue } from "client/states/states.subtitles";
 import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
 
 @Register()
-class SubtitleCommand {
+export class SubtitleCommand {
 	@Command({
 		name: "say",
 		description: "Adds a line of dialog to the subtitles",

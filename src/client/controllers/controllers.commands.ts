@@ -21,6 +21,6 @@ export class CommandsController implements OnStart {
 		});
 
 		CenturionUI.start(CENTURION_CLIENT);
-		StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false);
+		StarterGui.SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true);
 	}
 }

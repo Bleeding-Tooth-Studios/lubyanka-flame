@@ -11,8 +11,11 @@ import { Visualize } from "@rbxts/visualize";
 import { Make } from "@rbxts/altmake";
 import { size } from "@rbxts/gamejoy/out/Misc/Aliases";
 import { createBloodParticle } from "shared/util/util.blood-particle";
+import { Animation } from "@rbxts/animation";
+import { CharacterRigR6, promiseR6 } from "@rbxts/promise-character";
+import RaycastHitbox from "@rbxts/raycast-hitbox";
 
-function getCurrentWCS_Character() {
+export function getCurrentWCS_Character() {
 	print("scannig");
 	const characterModel = Players.LocalPlayer.Character;
 	if (!characterModel) return;
@@ -33,30 +36,20 @@ export class CombatController implements OnStart, OnRender {
 
 		Client.Start();
 
+		const bundle = Animation.createAnimations({
+			idle: "rbxassetid://126748553326889",
+			axe_swing: "rbxassetid://78432586847389",
+		});
+
 		this.inputController.DeveloperContext.Bind(["E"], () => {
 			const character = getCurrentWCS_Character();
 			if (!character) error("No WCS handle found for this character");
-
 			character.GetSkillFromConstructor(Attack)?.Start();
 
-			// Cast rays in an arc
-			castCameraArc(
-				{
-					angle: [45, 45],
-					range: 5,
-					segments: 10,
-					ignoreList: [game.GetService("Players").LocalPlayer.Character!],
-					time: 0.5,
-				},
-				(result) => {
-					Visualize.point(result.Position, Color3.fromRGB(255, 255, 0));
-				},
-				(result, humanoid) => {
-					Visualize.point(result.Position, Color3.fromRGB(255, 0, 0));
-					createBloodParticle(result.Position, 20, 25);
-					humanoid.TakeDamage(25);
-				},
-			);
+			const animator = Animation.loadAnimator(
+				(character.Instance as CharacterRigR6).Humanoid.Animator,
+				bundle,
+			).axe_swing.Play();
 		});
 	}
 
