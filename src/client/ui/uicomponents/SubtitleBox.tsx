@@ -1,16 +1,15 @@
-import React, { useEffect } from "@rbxts/react";
+import React, { useBinding, useEffect } from "@rbxts/react";
 import { ReactNode } from "@rbxts/react";
 import { COLORS } from "../uiconsts/uiconsts.colors";
 import { ANCHORS } from "../uiconsts/uiconsts.util";
 import { SubtitleText } from "./SubtitleText";
 import { SubtitleData } from "shared/types/types.subtitle";
 import { PADDING } from "../uiconsts/uiconsts.padding";
-import { useMotion, useSpring } from "@rbxts/pretty-react-hooks";
-import { Make } from "@rbxts/altmake";
-import { Signal } from "@rbxts/beacon";
+import { useMotion, useTimer } from "@rbxts/pretty-react-hooks";
 import { Atom, subscribe } from "@rbxts/charm";
 import { useAtom } from "@rbxts/react-charm";
 import { SUBTITLEBOX_HEIGHT_INCREMENT } from "../uiconsts/uiconsts.subtitles";
+import { RunService } from "@rbxts/services";
 
 export type SubtitleBoxProps = {
 	subtitlesQueue: Atom<SubtitleData[]>;
@@ -21,7 +20,6 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 	boxHeightMotion;
 
 	const subtitles = useAtom(subtitlesQueue);
-	const isSubtitlesEmpty = subtitles.isEmpty();
 
 	function updateHeightBinding(lines: number) {
 		boxHeightMotion.spring(SUBTITLEBOX_HEIGHT_INCREMENT * lines, { mass: 0.1, tension: 250 });

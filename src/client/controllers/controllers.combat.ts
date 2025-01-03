@@ -6,25 +6,12 @@ import { SKILLS_FOLDER } from "shared/combat/skills";
 import { Attack } from "shared/combat/skills/skills.attack";
 import { STATUSEFFECTS_FOLDER } from "shared/combat/status-effects";
 import { InputController } from "./controllers.input";
-import { castCameraArc } from "shared/util/util.camera-arc";
-import { Visualize } from "@rbxts/visualize";
-import { Make } from "@rbxts/altmake";
-import { size } from "@rbxts/gamejoy/out/Misc/Aliases";
-import { createBloodParticle } from "shared/util/util.blood-particle";
 import { Animation } from "@rbxts/animation";
-import { CharacterRigR6, promiseR6 } from "@rbxts/promise-character";
-import RaycastHitbox from "@rbxts/raycast-hitbox";
+import { CharacterRigR6 } from "@rbxts/promise-character";
 import { Functions } from "client/network";
 import { subtitlesQueue } from "client/states/states.subtitles";
 import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
-
-export function getCurrentWCS_Character() {
-	print("scannig");
-	const characterModel = Players.LocalPlayer.Character;
-	if (!characterModel) return;
-
-	return Character.GetCharacterFromInstance(characterModel);
-}
+import { getWCSCharacter } from "client/util/util.get-wcs-character";
 
 @Controller({})
 export class CombatController implements OnStart, OnRender {
@@ -45,14 +32,11 @@ export class CombatController implements OnStart, OnRender {
 		});
 
 		this.inputController.DeveloperContext.Bind(["E"], () => {
-			const character = getCurrentWCS_Character();
+			const character = getWCSCharacter();
 			if (!character) error("No WCS handle found for this character");
 			character.GetSkillFromConstructor(Attack)?.Start();
 
-			const animator = Animation.loadAnimator(
-				(character.Instance as CharacterRigR6).Humanoid.Animator,
-				bundle,
-			).axe_swing.Play();
+			Animation.loadAnimator((character.Instance as CharacterRigR6).Humanoid.Animator, bundle).axe_swing.Play();
 		});
 
 		this.inputController.DeveloperContext.Bind(["Q"], () => {

@@ -41,6 +41,7 @@
 		"@rbxts/lerp-functions": "^1.0.2",
 		"@rbxts/maid": "^1.1.0",
 		"@rbxts/melody": "^0.3.4",
+		"@rbxts/mutable-fast-replica": "^1.1.1",
 		"@rbxts/pretty-react-hooks": "^0.6.1",
 		"@rbxts/promise-character": "^1.0.3",
 		"@rbxts/raycast-hitbox": "^4.0.1-ts.1",

@@ -1,49 +1,60 @@
 import { OnStart } from "@flamework/core";
 import { Component, BaseComponent, Components } from "@flamework/components";
 import { atom, Atom } from "@rbxts/charm";
-import { PlayerInventory } from "shared/types/types.inventory";
+import { PlayerEquipment, PlayerMaterials } from "shared/types/types.inventory";
 import { Functions } from "server/network";
 import { Weapon } from "shared/types/types.weapon";
 import { ReplicatedStorage } from "@rbxts/services";
 import { MeleeWeapon } from "shared/types/types.melee-weapon";
+import { PlayerInventory } from "shared/types/types.player-data";
 
 @Component({
 	tag: "player-inventory",
 })
 export class InventoryComponent extends BaseComponent<{}, Player> implements OnStart {
 	public inventoryState: Atom<PlayerInventory> = atom<PlayerInventory>({
-		meleeSlot: undefined,
-		firearmSlot: undefined,
-		razors: 0,
-		utility1: undefined,
-		utility2: undefined,
-		utility3: undefined,
-		utility4: undefined,
+		equippedWeapon: undefined,
+
+		playerEquipment: {
+			meleeSlot: undefined,
+			firearmSlot: undefined,
+			utility1: undefined,
+			utility2: undefined,
+			utility3: undefined,
+			utility4: undefined,
+		},
+
+		playerMaterials: {
+			clothPiece: 0,
+			oilBottle: 0,
+			razorBlades: 0,
+			soulStones: 0,
+		},
 	});
 
 	public currentlyEquipped: Atom<Weapon | undefined> = atom<Weapon | undefined>(undefined);
 
 	giveMelee(weaponId: string) {
 		this.inventoryState((prev) => {
-			const dataClone = table.clone(prev);
+			const inventoryClone = table.clone(prev);
 
-			dataClone.meleeSlot = ReplicatedStorage.FindFirstChild(weaponId) as MeleeWeapon;
+			inventoryClone.playerEquipment.meleeSlot = ReplicatedStorage.FindFirstChild(weaponId) as MeleeWeapon;
 
-			print(`Player melee slot now filled with: ${dataClone.meleeSlot}`);
+			print(`Player melee slot now filled with: ${inventoryClone.playerEquipment.meleeSlot}`);
 
-			return dataClone;
+			return inventoryClone;
 		});
 	}
 
-	giveRazors(amount: number) {
+	giveMaterial(item: keyof PlayerMaterials, amount: number) {
 		this.inventoryState((prev) => {
-			const dataClone = table.clone(prev);
+			const inventoryClone = table.clone(prev);
 
-			dataClone.razors = dataClone.razors + amount;
+			inventoryClone.playerMaterials[item] = inventoryClone.playerMaterials[item] + amount;
 
-			print(`Player now has: ${dataClone.razors} razors`);
+			print(`Player material ${item} now has: ${inventoryClone.playerMaterials[item]}`);
 
-			return dataClone;
+			return inventoryClone;
 		});
 	}
 
