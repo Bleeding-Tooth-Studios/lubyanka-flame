@@ -1,9 +1,12 @@
+import { MeleeWeapon } from "./types.melee-weapon";
+import { Weapon } from "./types.weapon";
+
 export type PlayerInventory = {
-	meleeSlot: Model | undefined;
-	firearmSlot: Model | undefined;
+	meleeSlot: MeleeWeapon | undefined;
+	firearmSlot: Weapon | undefined;
 	razors: number;
-	utility1: Model | undefined;
-	utility2: Model | undefined;
-	utility3: Model | undefined;
-	utility4: Model | undefined;
+	utility1: Weapon | undefined;
+	utility2: Weapon | undefined;
+	utility3: Weapon | undefined;
+	utility4: Weapon | undefined;
 };
