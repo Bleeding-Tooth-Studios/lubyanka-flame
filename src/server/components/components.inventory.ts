@@ -3,6 +3,7 @@ import { Component, BaseComponent, Components } from "@flamework/components";
 import { atom, Atom } from "@rbxts/charm";
 import { PlayerInventory } from "shared/types/types.inventory";
 import { Functions } from "server/network";
+import { Weapon } from "shared/types/types.weapon";
 
 @Component({
 	tag: "player-inventory",
@@ -17,6 +18,8 @@ export class InventoryComponent extends BaseComponent<{}, Player> implements OnS
 		utility3: undefined,
 		utility4: undefined,
 	});
+
+	public equippedWeapon: Atom<Weapon | undefined> = atom<Weapon>();
 
 	onStart() {}
 }

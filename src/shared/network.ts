@@ -8,7 +8,6 @@ interface ClientToServerEvents {}
 interface ServerToClientEvents {}
 
 interface ClientToServerFunctions {
-	requestEquipWeapon(weapon: Weapon): Weapon;
 	requestEquipSlot(slot: keyof PlayerInventory): Weapon;
 	getPlayerInventory(): PlayerInventory;
 }

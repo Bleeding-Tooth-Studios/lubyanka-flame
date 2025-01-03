@@ -13,12 +13,7 @@ import { Weapon } from "shared/types/types.weapon";
 export class WeaponComponent extends BaseComponent<{}, Weapon> implements OnStart {
 	private maid = new Maid();
 
-	equip() {
-		const requestPromise = Functions.requestEquipWeapon(this.instance);
-		requestPromise.then((weapon) => {
-			this.instance;
-		});
-	}
+	equip() {}
 
 	unequip() {}
 
