@@ -1,7 +1,7 @@
 import { Weapon } from "./types.weapon";
 
 export type MeleeWeapon = Weapon & {
-	DamagePart: BasePart;
+	DamagePart: MeshPart;
 	Anims: Folder & {
 		HAttackStart: Animation;
 		HAttackCharge: Animation;
@@ -9,4 +9,9 @@ export type MeleeWeapon = Weapon & {
 		HAttackHit: Animation;
 		WeaponIdle: Animation;
 	};
+	WeaponHandle: MeshPart & {
+		WeldConstraint: WeldConstraint;
+		EquipWeld: Motor6D;
+	};
+	meleeStats: ModuleScript;
 };

@@ -19,7 +19,5 @@ export class InventoryComponent extends BaseComponent<{}, Player> implements OnS
 		utility4: undefined,
 	});
 
-	public equippedWeapon: Atom<Weapon | undefined> = atom<Weapon>();
-
 	onStart() {}
 }
