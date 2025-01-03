@@ -14,6 +14,9 @@ import { createBloodParticle } from "shared/util/util.blood-particle";
 import { Animation } from "@rbxts/animation";
 import { CharacterRigR6, promiseR6 } from "@rbxts/promise-character";
 import RaycastHitbox from "@rbxts/raycast-hitbox";
+import { Functions } from "client/network";
+import { subtitlesQueue } from "client/states/states.subtitles";
+import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
 
 export function getCurrentWCS_Character() {
 	print("scannig");
@@ -50,6 +53,22 @@ export class CombatController implements OnStart, OnRender {
 				(character.Instance as CharacterRigR6).Humanoid.Animator,
 				bundle,
 			).axe_swing.Play();
+		});
+
+		this.inputController.DeveloperContext.Bind(["Q"], () => {
+			Functions.requestEquipSlot("meleeSlot");
+
+			subtitlesQueue((prev) => {
+				const newQueue = table.clone(prev);
+				newQueue.push({
+					text: "The axe reeks of punishment.",
+					color: COLORS.WHITE,
+					duration: 5,
+					timeApplied: os.time(),
+				});
+
+				return newQueue;
+			});
 		});
 	}
 

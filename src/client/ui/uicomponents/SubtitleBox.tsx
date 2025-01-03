@@ -55,10 +55,10 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 		>
 			<uilistlayout FillDirection={"Vertical"} Padding={new UDim(0, PADDING.M)} />
 			<uipadding
-				PaddingBottom={new UDim(0, PADDING.M)}
+				PaddingBottom={new UDim(0, PADDING.XS)}
 				PaddingLeft={new UDim(0, PADDING.M)}
 				PaddingRight={new UDim(0, PADDING.M)}
-				PaddingTop={new UDim(0, PADDING.M)}
+				PaddingTop={new UDim(0, PADDING.XS)}
 			/>
 			{...subtitles.map((data) => {
 				return <SubtitleText Text={data.text} TextColor3={data.color} />;

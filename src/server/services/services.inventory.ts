@@ -23,11 +23,14 @@ export class InventoryService implements OnStart {
 	onStart() {
 		Players.PlayerAdded.Connect((player) => {
 			const x = this.components.addComponent<InventoryComponent>(player);
+
+			x.giveMelee("axe");
 		});
 
 		Functions.getPlayerInventory.setCallback((player) => this.readPlayerInventory(player));
 
 		Functions.requestEquipSlot.setCallback((player, slot) => {
+			print(`Attempting to equip: ${slot}`);
 			if (slot === "razors") return error(`${slot} is not implemented yet!`);
 
 			const targetWeapon = this.readPlayerInventory(player)[slot];
