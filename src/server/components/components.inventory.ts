@@ -7,6 +7,9 @@ import { Weapon } from "shared/types/types.weapon";
 import { ReplicatedStorage } from "@rbxts/services";
 import { MeleeWeapon } from "shared/types/types.melee-weapon";
 import { PlayerInventory } from "shared/types/types.player-data";
+import { CharacterRigR6 } from "@rbxts/promise-character";
+import { WeaponData } from "shared/types/types.weapon-stats";
+import { weldWeapon } from "shared/util/util.weld-weapon";
 
 @Component({
 	tag: "player-inventory",
@@ -32,9 +35,11 @@ export class InventoryComponent extends BaseComponent<{}, Player> implements OnS
 		},
 	});
 
-	public currentlyEquipped: Atom<Weapon | undefined> = atom<Weapon | undefined>(undefined);
+	readPlayerInventory(): PlayerInventory {
+		return this.inventoryState();
+	}
 
-	giveMelee(weaponId: string) {
+	giveMelee(weaponId: string): void {
 		this.inventoryState((prev) => {
 			const inventoryClone = table.clone(prev);
 
@@ -46,7 +51,7 @@ export class InventoryComponent extends BaseComponent<{}, Player> implements OnS
 		});
 	}
 
-	giveMaterial(item: keyof PlayerMaterials, amount: number) {
+	giveMaterial(item: keyof PlayerMaterials, amount: number): void {
 		this.inventoryState((prev) => {
 			const inventoryClone = table.clone(prev);
 
@@ -56,6 +61,37 @@ export class InventoryComponent extends BaseComponent<{}, Player> implements OnS
 
 			return inventoryClone;
 		});
+	}
+
+	subtractMaterial(item: keyof PlayerMaterials, amount: number): void {
+		this.inventoryState((prev) => {
+			const inventoryClone = table.clone(prev);
+
+			inventoryClone.playerMaterials[item] = inventoryClone.playerMaterials[item] - amount;
+
+			print(`Player material ${item} now has: ${inventoryClone.playerMaterials[item]}`);
+
+			return inventoryClone;
+		});
+	}
+
+	equipSlot(slot: keyof PlayerEquipment): Weapon {
+		const targetWeapon = this.readPlayerInventory().playerEquipment[slot];
+
+		if (!targetWeapon) return error(`Slot ${slot} has no weapon!`);
+
+		const player = this.instance;
+		const character = player.Character as CharacterRigR6;
+
+		if (!character) return error(`Player ${player.Name} has no character!`);
+
+		const weaponData = require(targetWeapon.weaponData) as WeaponData;
+		const clonedWeapon = targetWeapon.Clone();
+		clonedWeapon.Parent = character;
+
+		weldWeapon(clonedWeapon, character[weaponData.weldParent]);
+
+		return clonedWeapon;
 	}
 
 	onStart() {}

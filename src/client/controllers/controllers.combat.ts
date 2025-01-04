@@ -40,7 +40,7 @@ export class CombatController implements OnStart, OnRender {
 		});
 
 		this.inputController.DeveloperContext.Bind(["Q"], () => {
-			Functions.requestEquipSlot("meleeSlot");
+			Functions.equipSlot("meleeSlot");
 
 			subtitlesQueue((prev) => {
 				const newQueue = table.clone(prev);
