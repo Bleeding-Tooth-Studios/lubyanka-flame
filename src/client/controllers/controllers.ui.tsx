@@ -15,6 +15,6 @@ export class UIController implements OnStart {
 	public uiRoot = ReactRoblox.createRoot(this.uiContainer);
 
 	onStart() {
-		this.uiRoot.render(<InGameScreen subtitlesQueue={subtitlesQueue} healthProgress={100} />);
+		this.uiRoot.render(<InGameScreen subtitlesQueue={subtitlesQueue} />);
 	}
 }

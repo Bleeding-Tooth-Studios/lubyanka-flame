@@ -1,4 +1,4 @@
-import React, { useBinding, useEffect } from "@rbxts/react";
+import React, { useBinding, useEffect, useRef } from "@rbxts/react";
 import { ReactNode } from "@rbxts/react";
 import { COLORS } from "../uiconsts/uiconsts.colors";
 import { ANCHORS } from "../uiconsts/uiconsts.util";
@@ -22,35 +22,39 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 
 	const subtitles = useAtom(subtitlesQueue);
 
+	const subtitleFrameRef = useRef<Frame>();
+
 	function updateHeightBinding(height: number) {
 		boxHeightMotion.spring(height);
 	}
 
 	const subtitlesChildren = subtitles.map((data) => {
-		return <textlabel
-					key={"SubtitleText"}
-					{...TEXT_STYLES.MEDIUM}
-					Text={data.text}
-					TextColor3={data.color}
-					RichText={true}
-					BackgroundTransparency={1}
-					BorderSizePixel={0}
-					AutomaticSize={"XY"}
-					TextYAlignment={"Center"}
-				/>
-	})
+		return (
+			<textlabel
+				key={"SubtitleText"}
+				{...TEXT_STYLES.MEDIUM}
+				Text={data.text}
+				TextColor3={data.color}
+				RichText={true}
+				BackgroundTransparency={1}
+				Size={new UDim2(1, 0, 0, 18)}
+				BorderSizePixel={0}
+				AutomaticSize={"XY"}
+				TextYAlignment={"Center"}
+				TextXAlignment={"Left"}
+			/>
+		);
+	});
 
 	useEffect(() => {
-		const targetSize: number = 0
+		assert(subtitleFrameRef.current);
 
-		subtitlesChildren.forEach((subtitleComponent) => {
-			subtitleComponent.
-		})
-	}, [subtitlesChildren])
+		updateHeightBinding(subtitleFrameRef.current.AbsoluteSize.Y);
+	}, [subtitlesChildren]);
 
 	return (
 		<imagelabel
-		key={"SubtitleBox"}
+			key={"SubtitleBox"}
 			Image={"rbxassetid://103474017982487"}
 			ImageTransparency={0.25}
 			BackgroundTransparency={0.25}
@@ -65,16 +69,33 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 			ScaleType={"Slice"}
 			SliceCenter={new Rect(new Vector2(0, 0), new Vector2(650, 140))}
 			// eslint-disable-next-line roblox-ts/lua-truthiness
-			Visible={boxHeightBinding.map((boxHeight) => (boxHeight ? true : false))}
+			Visible={subtitles.isEmpty() ? false : true}
 		>
-			<uilistlayout FillDirection={"Vertical"} Padding={new UDim(0, PADDING.M)} />
-			<uipadding
-				PaddingBottom={new UDim(0, PADDING.XS)}
-				PaddingLeft={new UDim(0, PADDING.M)}
-				PaddingRight={new UDim(0, PADDING.M)}
-				PaddingTop={new UDim(0, PADDING.XS)}
-			/>
-			{...subtitlesChildren}
+			<frame
+				ref={subtitleFrameRef}
+				key={"SubtitleTextFrame"}
+				Size={new UDim2(1, 0, 0, 0)}
+				Transparency={1}
+				BackgroundTransparency={1}
+				BorderSizePixel={0}
+				AutomaticSize={"Y"}
+			>
+				<uipadding
+					PaddingBottom={new UDim(0, PADDING.M)}
+					PaddingLeft={new UDim(0, PADDING.M)}
+					PaddingRight={new UDim(0, PADDING.M)}
+					PaddingTop={new UDim(0, PADDING.M)}
+				/>
+
+				<uilistlayout
+					key={"SubtitleListLayout"}
+					VerticalAlignment={"Bottom"}
+					HorizontalAlignment={"Left"}
+					Padding={new UDim(0, PADDING.M)}
+					FillDirection={"Vertical"}
+				/>
+				{...subtitlesChildren}
+			</frame>
 		</imagelabel>
 	);
 }

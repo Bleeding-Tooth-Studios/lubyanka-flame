@@ -16,49 +16,42 @@
 	// 	"description": "Log output to console"
 	// }
 
-	"1":{
+	"React key":{
 		"prefix": "kk",
 		"body": [
 			"key={\"$1\"}$0"
 		],
 	},
 	
-	"2":{
+	"React property":{
 		"prefix": "pp",
 		"body": [
 			"$1={$2}$0"
 		],
 		},
 
-	"3":{
+	"new UDim2":{
 		"prefix": "uu",
 		"body": [
 			"new UDim2($1)"
 		],
 	},
 
-	"4":{
+	"new Vector2":{
 		"prefix": "vv",
 		"body": [
 			"new Vector2($1)"
 		],
 	},
 
-	"5":{
-		"prefix": "vv",
-		"body": [
-			"new Vector2($1)"
-		],
-	},
-
-	"6":{
+	"import React":{
 		"prefix": "imp",
 		"body": [
 			"import React from \"@rbxts/react\";"
 		],
 	},
 
-	"7":{
+	"InstanceProps":{
 		"prefix": "ipr",
 		"body": [
 			"React.InstanceProps<$1>$0"
@@ -70,5 +63,13 @@
 			"React.PropsWithChildren<$TM_SELECTED_TEXT>"
 		],
 	},
+
+	"Assert lua":{
+		"prefix": "asr",
+		"body": [
+			"assert($1)$0"
+		],
+	}
+
 }
 

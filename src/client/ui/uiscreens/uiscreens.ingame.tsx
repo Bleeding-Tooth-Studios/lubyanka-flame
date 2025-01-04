@@ -20,6 +20,7 @@ export function InGameScreen(props: ScreenProps): ReactNode {
 			Size={new UDim2(1, -PADDING.L * 2, 1, -PADDING.L * 2)}
 		>
 			<SubtitleBox subtitlesQueue={subtitles} />
+
 			<HealthBar
 				progress={100}
 				rbx={{

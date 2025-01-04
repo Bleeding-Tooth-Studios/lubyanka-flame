@@ -1,6 +1,6 @@
 import React from "@rbxts/react";
 import ReactRoblox from "@rbxts/react-roblox";
-import { InGameScreen, ScreenProps } from "../uiscreens/uiscreens.ingame";
+import { InGameScreen } from "../uiscreens/uiscreens.ingame";
 import { COLORS } from "../uiconsts/uiconsts.colors";
 import { atom, peek } from "@rbxts/charm";
 import { SubtitleData } from "shared/types/types.subtitle";
@@ -8,6 +8,7 @@ import { RunService } from "@rbxts/services";
 import { SUBTITLES_MAX_LINES } from "client/consts/consts.subtitles";
 import { subtitlesQueue } from "client/states/states.subtitles";
 import { pruneSubtitleQueue } from "client/controllers/controllers.subtitles";
+import { ScreenProps } from "shared/types/types.uitypes";
 
 namespace TEST_VARIABLES {
 	export const SUBTITLE_DURATION = 2;
@@ -50,7 +51,7 @@ const story = {
 	story: (controls: ScreenProps) => {
 		RunService.Heartbeat.Connect(() => pruneSubtitleQueue(TEST_VARIABLES.SUBTITLE_QUEUE));
 
-		return <InGameScreen healthProgress={controls.healthProgress} subtitlesQueue={TEST_VARIABLES.SUBTITLE_QUEUE} />;
+		return <InGameScreen subtitlesQueue={TEST_VARIABLES.SUBTITLE_QUEUE} />;
 	},
 };
 
