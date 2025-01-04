@@ -1,6 +1,6 @@
 import React from "@rbxts/react";
 import ReactRoblox from "@rbxts/react-roblox";
-import { InGamePage, InGamePageProps } from "../uipages/uipages.ingame";
+import { InGameScreen, ScreenProps } from "../uiscreens/uiscreens.ingame";
 import { COLORS } from "../uiconsts/uiconsts.colors";
 import { atom, peek } from "@rbxts/charm";
 import { SubtitleData } from "shared/types/types.subtitle";
@@ -47,10 +47,10 @@ const story = {
 	controls: {
 		healthProgress: 0.6,
 	},
-	story: (controls: InGamePageProps) => {
+	story: (controls: ScreenProps) => {
 		RunService.Heartbeat.Connect(() => pruneSubtitleQueue(TEST_VARIABLES.SUBTITLE_QUEUE));
 
-		return <InGamePage healthProgress={controls.healthProgress} subtitlesQueue={TEST_VARIABLES.SUBTITLE_QUEUE} />;
+		return <InGameScreen healthProgress={controls.healthProgress} subtitlesQueue={TEST_VARIABLES.SUBTITLE_QUEUE} />;
 	},
 };
 

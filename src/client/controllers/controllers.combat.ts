@@ -31,7 +31,7 @@ export class CombatController implements OnStart, OnRender {
 			axe_swing: "rbxassetid://78432586847389",
 		});
 
-		this.inputController.DeveloperContext.Bind(["E"], () => {
+		this.inputController.developerContext.Bind(["E"], () => {
 			const character = getWCSCharacter();
 			if (!character) error("No WCS handle found for this character");
 			character.GetSkillFromConstructor(Attack)?.Start();
@@ -39,7 +39,7 @@ export class CombatController implements OnStart, OnRender {
 			Animation.loadAnimator((character.Instance as CharacterRigR6).Humanoid.Animator, bundle).axe_swing.Play();
 		});
 
-		this.inputController.DeveloperContext.Bind(["Q"], () => {
+		this.inputController.developerContext.Bind(["Q"], () => {
 			Functions.equipSlot("meleeSlot");
 
 			subtitlesQueue((prev) => {

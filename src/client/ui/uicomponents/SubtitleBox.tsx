@@ -10,6 +10,7 @@ import { Atom, subscribe } from "@rbxts/charm";
 import { useAtom } from "@rbxts/react-charm";
 import { SUBTITLEBOX_HEIGHT_INCREMENT } from "../uiconsts/uiconsts.subtitles";
 import { RunService } from "@rbxts/services";
+import { TEXT_STYLES } from "../uiconsts/uiconsts.textstyles";
 
 export type SubtitleBoxProps = {
 	subtitlesQueue: Atom<SubtitleData[]>;
@@ -21,20 +22,35 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 
 	const subtitles = useAtom(subtitlesQueue);
 
-	function updateHeightBinding(lines: number) {
-		boxHeightMotion.spring(SUBTITLEBOX_HEIGHT_INCREMENT * lines, { mass: 0.1, tension: 250 });
+	function updateHeightBinding(height: number) {
+		boxHeightMotion.spring(height);
 	}
 
-	useEffect(() => {
-		subscribe(subtitlesQueue, (queue) => {
-			updateHeightBinding(queue.size());
-		});
+	const subtitlesChildren = subtitles.map((data) => {
+		return <textlabel
+					key={"SubtitleText"}
+					{...TEXT_STYLES.MEDIUM}
+					Text={data.text}
+					TextColor3={data.color}
+					RichText={true}
+					BackgroundTransparency={1}
+					BorderSizePixel={0}
+					AutomaticSize={"XY"}
+					TextYAlignment={"Center"}
+				/>
+	})
 
-		updateHeightBinding(subtitles.size());
-	}, []);
+	useEffect(() => {
+		const targetSize: number = 0
+
+		subtitlesChildren.forEach((subtitleComponent) => {
+			subtitleComponent.
+		})
+	}, [subtitlesChildren])
 
 	return (
 		<imagelabel
+		key={"SubtitleBox"}
 			Image={"rbxassetid://103474017982487"}
 			ImageTransparency={0.25}
 			BackgroundTransparency={0.25}
@@ -58,9 +74,7 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 				PaddingRight={new UDim(0, PADDING.M)}
 				PaddingTop={new UDim(0, PADDING.XS)}
 			/>
-			{...subtitles.map((data) => {
-				return <SubtitleText Text={data.text} TextColor3={data.color} />;
-			})}
+			{...subtitlesChildren}
 		</imagelabel>
 	);
 }
