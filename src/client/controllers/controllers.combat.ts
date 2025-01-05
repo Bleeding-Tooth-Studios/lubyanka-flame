@@ -1,17 +1,16 @@
 import { Controller, OnRender, OnStart } from "@flamework/core";
-import { Debris, Players, ReplicatedStorage, UserInputService } from "@rbxts/services";
-import { Character, CreateClient } from "@rbxts/wcs";
+import { Animation } from "@rbxts/animation";
+import { CharacterRigR6 } from "@rbxts/promise-character";
+import { CreateClient } from "@rbxts/wcs";
+import { Functions } from "client/network";
+import { subtitlesQueue } from "client/states/states.subtitles";
+import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
+import { getWCSCharacter } from "client/util/util.get-wcs-character";
 import { MOVESETS_FOLDER } from "shared/combat/movesets";
 import { SKILLS_FOLDER } from "shared/combat/skills";
 import { Attack } from "shared/combat/skills/skills.attack";
 import { STATUSEFFECTS_FOLDER } from "shared/combat/status-effects";
 import { InputController } from "./controllers.input";
-import { Animation } from "@rbxts/animation";
-import { CharacterRigR6 } from "@rbxts/promise-character";
-import { Functions } from "client/network";
-import { subtitlesQueue } from "client/states/states.subtitles";
-import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
-import { getWCSCharacter } from "client/util/util.get-wcs-character";
 
 @Controller({})
 export class CombatController implements OnStart, OnRender {
@@ -44,7 +43,7 @@ export class CombatController implements OnStart, OnRender {
 
 			subtitlesQueue((prev) => {
 				const newQueue = table.clone(prev);
-				newQueue.push({
+				newQueue.unshift({
 					text: "The axe reeks of punishment.",
 					color: COLORS.WHITE,
 					duration: 5,

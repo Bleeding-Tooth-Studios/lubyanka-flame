@@ -3,7 +3,13 @@ import { SubtitleData } from "./types.subtitle";
 
 export type TextStyle = Pick<React.InstanceProps<TextLabel>, "FontSize" | "FontFace">;
 
-export type ScreenProps = { subtitlesQueue: Atom<SubtitleData[]> };
+export type ScreenProps = {
+	uiScreenState: Atom<UIScreens>;
+	uiMenuPageState: Atom<MainMenuPages>;
+	subtitlesQueue: Atom<SubtitleData[]>;
+};
+
+export type ScreenPageProps = {};
 
 export type MainMenuPageProps = {};
 
@@ -20,5 +26,5 @@ export enum MainMenuPages {
 
 export type UIState = {
 	currentScreen: number;
-	currentMainMenuPage: number;
+	currentMainMenuPage: MainMenuPages;
 };

@@ -18,14 +18,14 @@ export type SubtitleBoxProps = {
 export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 	const { subtitlesQueue } = props;
 	const [boxHeightBinding, boxHeightMotion] = useMotion(0);
-	boxHeightMotion;
+	const [boxTransparencyBinding, boxTransparencyMotion] = useMotion(0);
 
 	const subtitles = useAtom(subtitlesQueue);
 
 	const subtitleFrameRef = useRef<Frame>();
 
 	function updateHeightBinding(height: number) {
-		boxHeightMotion.spring(height);
+		boxHeightMotion.spring(height, { mass: 0.01, friction: 10 });
 	}
 
 	const subtitlesChildren = subtitles.map((data) => {
@@ -49,15 +49,17 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 	useEffect(() => {
 		assert(subtitleFrameRef.current);
 
-		updateHeightBinding(subtitleFrameRef.current.AbsoluteSize.Y);
+		boxHeightMotion.spring(subtitleFrameRef.current.AbsoluteSize.Y, { mass: 0.01, friction: 10 });
+
+		boxTransparencyMotion.spring(subtitlesChildren.isEmpty() ? 1 : 0.25, { mass: 0.01, friction: 10 });
 	}, [subtitlesChildren]);
 
 	return (
 		<imagelabel
 			key={"SubtitleBox"}
 			Image={"rbxassetid://103474017982487"}
-			ImageTransparency={0.25}
-			BackgroundTransparency={0.25}
+			ImageTransparency={boxTransparencyBinding}
+			BackgroundTransparency={boxTransparencyBinding}
 			BorderSizePixel={1}
 			BorderMode={"Inset"}
 			BorderColor3={COLORS.BLACK}
@@ -69,7 +71,7 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 			ScaleType={"Slice"}
 			SliceCenter={new Rect(new Vector2(0, 0), new Vector2(650, 140))}
 			// eslint-disable-next-line roblox-ts/lua-truthiness
-			Visible={subtitles.isEmpty() ? false : true}
+			Visible={true}
 		>
 			<frame
 				ref={subtitleFrameRef}
@@ -81,6 +83,7 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 				AutomaticSize={"Y"}
 			>
 				<uipadding
+					key={"SubtitleBoxPad"}
 					PaddingBottom={new UDim(0, PADDING.M)}
 					PaddingLeft={new UDim(0, PADDING.M)}
 					PaddingRight={new UDim(0, PADDING.M)}
@@ -89,7 +92,7 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 
 				<uilistlayout
 					key={"SubtitleListLayout"}
-					VerticalAlignment={"Bottom"}
+					VerticalAlignment={"Top"}
 					HorizontalAlignment={"Left"}
 					Padding={new UDim(0, PADDING.M)}
 					FillDirection={"Vertical"}

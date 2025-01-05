@@ -22,13 +22,6 @@
 			"key={\"$1\"}$0"
 		],
 	},
-	
-	"React property":{
-		"prefix": "pp",
-		"body": [
-			"$1={$2}$0"
-		],
-		},
 
 	"new UDim2":{
 		"prefix": "uu",
