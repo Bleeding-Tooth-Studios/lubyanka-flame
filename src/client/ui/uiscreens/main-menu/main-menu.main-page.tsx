@@ -2,7 +2,7 @@ import React, { ReactNode } from "@rbxts/react";
 import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
 import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
 import { TEXT_STYLES } from "client/ui/uiconsts/uiconsts.textstyles";
-import { MainMenuPageProps } from "shared/types/types.uitypes";
+import { MainMenuPageProps } from "client/types/types.uitypes";
 
 export function MainPage(props: MainMenuPageProps): ReactNode {
 	return (

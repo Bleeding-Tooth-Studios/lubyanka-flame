@@ -1,12 +1,9 @@
-import { PropsWithChildren, ReactNode } from "@rbxts/react";
-import { PADDING } from "../uiconsts/uiconsts.padding";
-import React from "@rbxts/react";
+import React, { ReactNode } from "@rbxts/react";
+import { ScreenProps } from "client/types/types.uitypes";
 import HealthBar from "../uicomponents/HealthBar";
+import { SubtitleBox } from "../uicomponents/SubtitleBox";
+import { PADDING } from "../uiconsts/uiconsts.padding";
 import { ANCHORS, POSITIONSCALES } from "../uiconsts/uiconsts.util";
-import { SubtitleBox, SubtitleBoxProps } from "../uicomponents/SubtitleBox";
-import { SubtitleData } from "shared/types/types.subtitle";
-import { Atom } from "@rbxts/charm";
-import { ScreenProps } from "shared/types/types.uitypes";
 
 export function InGameScreen(props: ScreenProps): ReactNode {
 	const { subtitlesQueue: subtitles } = props;

@@ -2,7 +2,7 @@ import React from "@rbxts/react";
 import ReactRoblox from "@rbxts/react-roblox";
 import { RunService } from "@rbxts/services";
 import { pruneSubtitleQueue } from "client/controllers/controllers.subtitles";
-import { ScreenProps } from "shared/types/types.uitypes";
+import { ScreenProps } from "client/types/types.uitypes";
 import { InGameScreen } from "../uiscreens/uiscreens.ingame";
 import { TEST_VARIABLES } from "./TEST_VARIABLES";
 

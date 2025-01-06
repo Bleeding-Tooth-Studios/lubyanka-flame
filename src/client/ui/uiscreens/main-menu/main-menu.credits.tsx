@@ -1,7 +1,7 @@
 import React, { ReactNode } from "@rbxts/react";
+import { MainMenuPageProps } from "client/types/types.uitypes";
 import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
 import { FONTS } from "client/ui/uiconsts/uiconsts.util";
-import { MainMenuPageProps } from "shared/types/types.uitypes";
 
 export function CreditsPage(props: MainMenuPageProps): ReactNode {
 	return (

@@ -1,4 +1,4 @@
-import { TextStyle } from "shared/types/types.uitypes";
+import { TextStyle } from "client/types/types.uitypes";
 import { FONTS } from "./uiconsts.util";
 
 export namespace TEXT_STYLES {

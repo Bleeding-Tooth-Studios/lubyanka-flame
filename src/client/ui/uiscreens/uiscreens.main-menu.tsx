@@ -1,13 +1,15 @@
 import React, { ReactNode } from "@rbxts/react";
 import { useAtom } from "@rbxts/react-charm";
-import { MainMenuPagesMap } from "client/consts/consts.uistates";
-import { ScreenProps } from "shared/types/types.uitypes";
+import { ScreenProps } from "client/types/types.uitypes";
 import PaddedFrame from "../uicomponents/PaddedFrame";
 import { COLORS } from "../uiconsts/uiconsts.colors";
 import { PADDING } from "../uiconsts/uiconsts.padding";
+import { MAIN_MENU_PAGES } from "client/consts/consts.menu-pages";
 
 export function MainMenuScreen(props: ScreenProps): ReactNode {
-	const currentPage = useAtom(props.uiMenuPageState);
+	const uiState = useAtom(() => {
+		return props.uiState().currentMainMenuPage;
+	});
 
 	return (
 		<PaddedFrame
@@ -17,7 +19,7 @@ export function MainMenuScreen(props: ScreenProps): ReactNode {
 			}}
 			paddingSize={PADDING.L}
 		>
-			{MainMenuPagesMap[currentPage]({})}
+			{MAIN_MENU_PAGES[uiState]({})}
 		</PaddedFrame>
 	);
 }

@@ -1,11 +1,7 @@
 import { atom } from "@rbxts/charm";
 import { SubtitleData } from "shared/types/types.subtitle";
+import { ScreenProps, UIState } from "client/types/types.uitypes";
 import { COLORS } from "../uiconsts/uiconsts.colors";
-import { UIState, UIScreens, MainMenuPages, ScreenProps } from "shared/types/types.uitypes";
-import React from "@rbxts/react";
-import { subtitlesQueue } from "client/states/states.subtitles";
-import { MainMenuPagesMap } from "client/consts/consts.uistates";
-import { uiScreenState } from "client/states/states.ui";
 
 export const TEST_VARIABLES: ScreenProps = {
 	subtitlesQueue: atom<SubtitleData[]>([
@@ -36,6 +32,8 @@ export const TEST_VARIABLES: ScreenProps = {
 		{ text: "Did it?", color: COLORS.WHITE, timeApplied: os.time(), duration: 2 + 6 },
 	]),
 
-	uiMenuPageState: atom<MainMenuPages>(MainMenuPages.mainPage),
-	uiScreenState: atom<UIScreens>(UIScreens.mainMenu),
+	uiState: atom<UIState>({
+		currentMainMenuPage: "CREDITS_PAGE",
+		currentScreen: "MAIN_MENU",
+	}),
 };
