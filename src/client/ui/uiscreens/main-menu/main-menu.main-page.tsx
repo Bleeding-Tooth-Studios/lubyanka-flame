@@ -3,23 +3,12 @@ import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
 import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
 import { TEXT_STYLES } from "client/ui/uiconsts/uiconsts.textstyles";
 import { MainMenuPageProps } from "client/types/types.uitypes";
+import { UIStateActions } from "client/util/util.uistate-actions";
+import FigmaFrame from "client/ui/uicomponents/FigmaFrame";
 
 export function MainPage(props: MainMenuPageProps): ReactNode {
 	return (
-		<frame
-			key={"MainPage"}
-			Size={UDim2.fromScale(1, 1)}
-			BorderSizePixel={0}
-			BackgroundTransparency={1}
-			Transparency={1}
-		>
-			<uilistlayout
-				FillDirection={"Vertical"}
-				VerticalAlignment={"Top"}
-				HorizontalAlignment={"Left"}
-				SortOrder={"LayoutOrder"}
-				Padding={new UDim(0, PADDING.L)}
-			/>
+		<FigmaFrame autoLayout={["Vertical", "TopLeft", 12]} size={["Fill", "Fill"]} pad={[PADDING.L, PADDING.L]}>
 			<textbutton
 				{...TEXT_STYLES.TITLE}
 				LayoutOrder={1}
@@ -59,6 +48,11 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				AutomaticSize={"XY"}
 				BorderSizePixel={0}
 				TextColor3={COLORS.WHITE}
+				Event={{
+					MouseButton1Click: (rbx) => {
+						props.fadeToPage("KEYBINDS_PAGE", 2);
+					},
+				}}
 			/>
 			<textbutton
 				{...TEXT_STYLES.SCREENHEADERS}
@@ -79,7 +73,12 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				AutomaticSize={"XY"}
 				BorderSizePixel={0}
 				TextColor3={COLORS.WHITE}
+				Event={{
+					MouseButton1Click: (rbx) => {
+						props.fadeToPage("CREDITS_PAGE", 0.25);
+					},
+				}}
 			/>
-		</frame>
+		</FigmaFrame>
 	);
 }

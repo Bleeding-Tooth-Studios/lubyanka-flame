@@ -5,30 +5,15 @@ import { FONTS } from "client/ui/uiconsts/uiconsts.util";
 
 export function CreditsPage(props: MainMenuPageProps): ReactNode {
 	return (
-		<frame
-			key="CreditsPage"
-			BackgroundColor3={Color3.fromRGB(0, 0, 0)}
-			BorderSizePixel={0}
-			Size={UDim2.fromScale(1, 1)}
-		>
-			<frame
-				key="Buttons"
-				BackgroundColor3={Color3.fromRGB(0, 0, 0)}
-				BorderSizePixel={0}
-				Size={UDim2.fromScale(1, 1)}
-			>
+		<frame key="CreditsPage" BackgroundTransparency={1} BorderSizePixel={0} Size={UDim2.fromScale(1, 1)}>
+			<frame key="Buttons" BackgroundTransparency={1} BorderSizePixel={0} Size={UDim2.fromScale(1, 1)}>
 				<uilistlayout
 					FillDirection={"Vertical"}
 					HorizontalAlignment={"Center"}
 					VerticalAlignment={"Top"}
 					Padding={new UDim(0, PADDING.L)}
 				/>
-				<frame
-					key="Section1"
-					BackgroundColor3={Color3.fromRGB(0, 0, 0)}
-					BorderSizePixel={0}
-					AutomaticSize={"XY"}
-				>
+				<frame key="Section1" BackgroundTransparency={1} BorderSizePixel={0} AutomaticSize={"XY"}>
 					<uilistlayout
 						FillDirection={"Vertical"}
 						HorizontalAlignment={"Center"}
@@ -69,12 +54,7 @@ export function CreditsPage(props: MainMenuPageProps): ReactNode {
 						TextSize={24}
 					/>
 				</frame>
-				<frame
-					key="Section2"
-					BackgroundColor3={Color3.fromRGB(0, 0, 0)}
-					BorderSizePixel={0}
-					AutomaticSize={"XY"}
-				>
+				<frame key="Section2" BackgroundTransparency={1} BorderSizePixel={0} AutomaticSize={"XY"}>
 					<uilistlayout
 						FillDirection={"Vertical"}
 						HorizontalAlignment={"Center"}

@@ -10,7 +10,10 @@ export type ScreenProps = {
 	uiState: Atom<UIState>;
 };
 
-export type MainMenuPageProps = {};
+export type MainMenuPageProps = {
+	uiState: Atom<UIState>;
+	fadeToPage: (page: keyof typeof MAIN_MENU_PAGES, speed: number) => void;
+};
 
 export type UIState = {
 	currentScreen: keyof typeof UI_SCREENS;
