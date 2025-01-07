@@ -1,9 +1,8 @@
 import { Components } from "@flamework/components";
-import { Service, OnStart, Dependency } from "@flamework/core";
+import { Service, OnStart } from "@flamework/core";
 import { Players } from "@rbxts/services";
 import { InventoryComponent } from "server/components/components.inventory";
 import { Functions } from "server/network";
-import { PlayerInventory } from "shared/types/types.inventory";
 
 @Service()
 export class InventoryService implements OnStart {
@@ -12,14 +11,22 @@ export class InventoryService implements OnStart {
 	onStart() {
 		Players.PlayerAdded.Connect((player) => {
 			const x = this.components.addComponent<InventoryComponent>(player);
+
+			x.giveMelee("axe");
 		});
 
-		Functions.getPlayerInventory.setCallback((player) => {
-			const inventoryComponent = this.components.getComponent<InventoryComponent>(player);
+		Functions.equipSlot.setCallback((player, slot) => {
+			const component =
+				this.components.getComponent<InventoryComponent>(player) ??
+				error(`Player ${player.Name} has no inventory component!`);
+			return component.equipSlot(slot);
+		});
 
-			if (!inventoryComponent) error(`No inventory on player: ${player.Name}`);
-
-			return inventoryComponent.inventoryState();
+		Functions.readPlayerInventory.setCallback((player) => {
+			const component =
+				this.components.getComponent<InventoryComponent>(player) ??
+				error(`Player ${player.Name} has no inventory component!`);
+			return component.readPlayerInventory();
 		});
 	}
 }

@@ -4,17 +4,19 @@ import { Context } from "@rbxts/gamejoy";
 
 @Controller()
 export class InputController implements OnStart {
-	public DeveloperContext = new Context({
+	public developerContext = new Context({
 		ActionGhosting: 0,
 		OnBefore: () => true,
 		Process: false,
 		RunSynchronously: false,
 	});
 
+	public ingameContext = new Context();
+
 	onStart(): void {
 		print("Input Controller started");
 
-		this.DeveloperContext.Bind("Backquote", () => {
+		this.developerContext.Bind("Backquote", () => {
 			CenturionUI.setVisible(true);
 		});
 	}

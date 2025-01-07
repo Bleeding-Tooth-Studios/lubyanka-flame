@@ -1,5 +1,7 @@
-export type MeleeWeapon = Model & {
-	AxeHead: MeshPart;
+import { Weapon } from "./types.weapon";
+
+export type MeleeWeapon = Weapon & {
+	DamagePart: MeshPart;
 	Anims: Folder & {
 		HAttackStart: Animation;
 		HAttackCharge: Animation;
@@ -11,4 +13,5 @@ export type MeleeWeapon = Model & {
 		WeldConstraint: WeldConstraint;
 		EquipWeld: Motor6D;
 	};
+	meleeStats: ModuleScript;
 };

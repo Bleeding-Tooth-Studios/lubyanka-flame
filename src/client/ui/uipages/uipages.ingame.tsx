@@ -7,7 +7,7 @@ import { SubtitleBox, SubtitleBoxProps } from "../uicomponents/SubtitleBox";
 import { SubtitleData } from "shared/types/types.subtitle";
 import { Atom } from "@rbxts/charm";
 import { TimerText } from "../uicomponents/Timer";
-import { timerSeconds } from "client/states/states.time";
+
 
 
 export type InGamePageProps = { healthProgress: number; subtitlesQueue: Atom<SubtitleData[]>, timerSeconds: number};

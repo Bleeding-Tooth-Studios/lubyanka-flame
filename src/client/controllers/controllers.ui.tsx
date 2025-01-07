@@ -4,8 +4,8 @@ import React from "@rbxts/react";
 import ReactRoblox from "@rbxts/react-roblox";
 import { Players } from "@rbxts/services";
 import { subtitlesQueue } from "client/states/states.subtitles";
-import { timerSeconds } from "client/states/states.time";
-import { InGamePage } from "client/ui/uipages/uipages.ingame";
+import { uiState } from "client/states/states.ui";
+import { InGameScreen } from "client/ui/uiscreens/uiscreens.ingame";
 
 @Controller({})
 export class UIController implements OnStart {
@@ -16,6 +16,6 @@ export class UIController implements OnStart {
 	public uiRoot = ReactRoblox.createRoot(this.uiContainer);
 
 	onStart() {
-		this.uiRoot.render(<InGamePage subtitlesQueue={subtitlesQueue} healthProgress={100} timerSeconds={timerSeconds} />);
+		this.uiRoot.render(<InGameScreen uiState={uiState} subtitlesQueue={subtitlesQueue} />);
 	}
 }

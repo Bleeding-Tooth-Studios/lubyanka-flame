@@ -16,17 +16,5 @@ export class SubtitleCommand {
 			},
 		],
 	})
-	say(ctx: CommandContext, text: string, color: Color3) {
-		subtitlesQueue((prev) => {
-			const newQueue = table.clone(prev);
-			newQueue.push({
-				text: text,
-				color: COLORS.WHITE,
-				duration: 5,
-				timeApplied: os.time(),
-			});
-
-			return newQueue;
-		});
-	}
+	say(ctx: CommandContext, text: string, color: Color3) {}
 }

@@ -1,7 +1,5 @@
 import { Controller, OnStart, OnTick } from "@flamework/core";
-import { Signal } from "@rbxts/beacon";
-import { Atom, peek, subscribe } from "@rbxts/charm";
-import { setInterval } from "@rbxts/set-timeout";
+import { Atom, peek } from "@rbxts/charm";
 import { SUBTITLES_MAX_LINES } from "client/consts/consts.subtitles";
 import { subtitlesQueue } from "client/states/states.subtitles";
 import { SubtitleData } from "shared/types/types.subtitle";
@@ -20,8 +18,10 @@ export function pruneSubtitleQueue(subtitleQueue: Atom<SubtitleData[]>) {
 }
 
 @Controller({})
-export class SubtitlesController implements OnTick {
+export class SubtitlesController implements OnTick, OnStart {
 	onTick(dt: number): void {
 		pruneSubtitleQueue(subtitlesQueue);
 	}
+
+	onStart(): void {}
 }

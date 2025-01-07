@@ -31,7 +31,7 @@ export function TimerText(props:{
 }): ReactNode {
 
     const timer = useTimer()
-    const second = toBinding(timer.value.map((value) => ))
+    const second = toBinding(timer.value.map((value) => math.floor(value)))
     timer.start
     return(
         <textlabel

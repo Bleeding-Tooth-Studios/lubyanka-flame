@@ -9,7 +9,7 @@ export class InventoryCommand {
 		arguments: [],
 	})
 	readInventory(ctx: CommandContext) {
-		Functions.getPlayerInventory.invoke().then((data) => {
+		Functions.readPlayerInventory.invoke().then((data) => {
 			print(data);
 		});
 		ctx.reply("Please check your output. (F9)");
