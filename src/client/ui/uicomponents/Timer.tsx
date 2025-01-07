@@ -4,6 +4,7 @@ import { ANCHORS, POSITIONSCALES } from "../uiconsts/uiconsts.util";
 import { TEXT_STYLES } from "../uiconsts/uiconsts.textstyles";
 import { useTimer } from "@rbxts/pretty-react-hooks";
 import { toBinding } from "@rbxts/pretty-react-hooks";
+import { COLORS } from "../uiconsts/uiconsts.colors";
 
 //formatSeconds(2,40) --> count down from 00:38
 //formatSeconds(0,70) --> count down from 01:10
@@ -27,15 +28,15 @@ function formatSeconds(elapsedSeconds: number, totalSeconds: number): string {
 
 export function TimerText(props: { totalSeconds: number }): ReactNode {
 	const timer = useTimer();
-	const second = toBinding(timer.value.map((value) => math.floor(value)));
-	timer.start;
 	return (
 		<textlabel
 			key="TimerText"
 			{...TEXT_STYLES.MEDIUM}
-			Text={timer.value.map((value) => formatSeconds(math.floor(value), 5))}
+			Text={timer.value.map((value) => formatSeconds(math.floor(value), props.totalSeconds))}
 			BackgroundColor3={Color3.fromRGB(255, 0, 0)}
-			TextColor3={Color3.fromRGB(255, 255, 255)}
+			TextColor3={timer.value.map((value) => {
+				return props.totalSeconds - math.floor(value) <= 10 ? COLORS.RED : COLORS.WHITE;
+			})}
 			AnchorPoint={ANCHORS.CENTER_TOP}
 			Position={POSITIONSCALES.CENTER_TOP}
 		/>

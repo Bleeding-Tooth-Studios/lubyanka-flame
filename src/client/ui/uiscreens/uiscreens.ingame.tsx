@@ -4,6 +4,7 @@ import HealthBar from "../uicomponents/HealthBar";
 import { SubtitleBox } from "../uicomponents/SubtitleBox";
 import { PADDING } from "../uiconsts/uiconsts.padding";
 import { ANCHORS, POSITIONSCALES } from "../uiconsts/uiconsts.util";
+import { TimerText } from "../uicomponents/Timer";
 
 export function InGameScreen(props: ScreenProps): ReactNode {
 	const { subtitlesQueue: subtitles } = props;
@@ -25,6 +26,8 @@ export function InGameScreen(props: ScreenProps): ReactNode {
 					AnchorPoint: ANCHORS.LEFT_BOTTOM,
 				}}
 			/>
+
+			<TimerText totalSeconds={15} />
 		</frame>
 	);
 }
