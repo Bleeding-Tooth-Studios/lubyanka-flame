@@ -91,7 +91,7 @@ export namespace Figma {
 	export function autoLayout(
 		mode: keyof typeof autoLayoutMode,
 		align: keyof typeof alignModes,
-		space: number,
+		space?: number,
 	): Pick<
 		InstanceProps<UIListLayout>,
 		"HorizontalAlignment" | "VerticalAlignment" | "FillDirection" | "Wraps" | "Padding"
