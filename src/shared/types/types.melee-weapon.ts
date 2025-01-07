@@ -1,4 +1,4 @@
-type MeleeWeapon = Model & {
+export type MeleeWeapon = Model & {
 	AxeHead: MeshPart;
 	Anims: Folder & {
 		HAttackStart: Animation;

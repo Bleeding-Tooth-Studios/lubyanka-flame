@@ -8,6 +8,7 @@ import { RunService } from "@rbxts/services";
 import { SUBTITLES_MAX_LINES } from "client/consts/consts.subtitles";
 import { subtitlesQueue } from "client/states/states.subtitles";
 import { pruneSubtitleQueue } from "client/controllers/controllers.subtitles";
+import { timerSeconds } from "client/states/states.time";
 
 namespace TEST_VARIABLES {
 	export const SUBTITLE_DURATION = 2;
@@ -50,7 +51,7 @@ const story = {
 	story: (controls: InGamePageProps) => {
 		RunService.Heartbeat.Connect(() => pruneSubtitleQueue(TEST_VARIABLES.SUBTITLE_QUEUE));
 
-		return <InGamePage healthProgress={controls.healthProgress} subtitlesQueue={TEST_VARIABLES.SUBTITLE_QUEUE} />;
+		return <InGamePage healthProgress={controls.healthProgress} subtitlesQueue={TEST_VARIABLES.SUBTITLE_QUEUE} timerSeconds={timerSeconds}/>;
 	},
 };
 

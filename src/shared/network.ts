@@ -1,12 +1,13 @@
 import { Networking } from "@flamework/networking";
 import { PlayerInventory } from "./types/types.inventory";
+import { MeleeWeapon } from "./types/types.melee-weapon";
 
 interface ClientToServerEvents {}
 
 interface ServerToClientEvents {}
 
 interface ClientToServerFunctions {
-	requestEquipWeapon(weapon: MeleeWeapon);
+	requestEquipWeapon(weapon: MeleeWeapon): MeleeWeapon;
 	getPlayerInventory(): PlayerInventory;
 }
 

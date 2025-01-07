@@ -3,6 +3,7 @@ import { Component, BaseComponent } from "@flamework/components";
 import { CharacterRigR6 } from "@rbxts/promise-character";
 import Maid from "@rbxts/maid";
 import { Players } from "@rbxts/services";
+import { MeleeWeapon } from "shared/types/types.melee-weapon";
 
 @Component({
 	tag: "melee-weapon",

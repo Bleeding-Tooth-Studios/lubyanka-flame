@@ -1,0 +1,1 @@
+export type Second = { second : number }

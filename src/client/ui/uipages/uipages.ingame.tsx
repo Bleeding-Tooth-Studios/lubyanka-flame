@@ -6,10 +6,13 @@ import { ANCHORS, POSITIONSCALES } from "../uiconsts/uiconsts.util";
 import { SubtitleBox, SubtitleBoxProps } from "../uicomponents/SubtitleBox";
 import { SubtitleData } from "shared/types/types.subtitle";
 import { Atom } from "@rbxts/charm";
+import { TimerText } from "../uicomponents/Timer";
+import { timerSeconds } from "client/states/states.time";
 
-export type InGamePageProps = { healthProgress: number; subtitlesQueue: Atom<SubtitleData[]> };
+
+export type InGamePageProps = { healthProgress: number; subtitlesQueue: Atom<SubtitleData[]>, timerSeconds: number};
 export function InGamePage(props: InGamePageProps): ReactNode {
-	const { healthProgress, subtitlesQueue: subtitles } = props;
+	const { healthProgress, subtitlesQueue: subtitles, timerSeconds } = props;
 
 	return (
 		<frame
@@ -26,6 +29,7 @@ export function InGamePage(props: InGamePageProps): ReactNode {
 					AnchorPoint: ANCHORS.LEFT_BOTTOM,
 				}}
 			/>
+			<TimerText totalSeconds={timerSeconds}/>
 		</frame>
 	);
 }
