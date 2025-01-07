@@ -54,6 +54,7 @@
 		"@rbxts/services": "^1.5.5",
 		"@rbxts/set-timeout": "^1.1.2",
 		"@rbxts/soundtrack": "^1.0.4",
+		"@rbxts/timer": "^0.0.9",
 		"@rbxts/transform-uuid": "^0.0.3",
 		"@rbxts/validate-tree": "^2.0.2",
 		"@rbxts/visualize": "^1.1.1",
