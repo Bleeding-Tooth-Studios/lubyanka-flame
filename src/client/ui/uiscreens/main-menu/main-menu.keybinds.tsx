@@ -4,22 +4,12 @@ import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
 import { TEXT_STYLES } from "client/ui/uiconsts/uiconsts.textstyles";
 import { MainMenuPageProps } from "client/types/types.uitypes";
 import { FONTS } from "client/ui/uiconsts/uiconsts.util";
+import FigmaFrame from "client/ui/uicomponents/FigmaFrame";
 
 export function KeybindsPage(props: MainMenuPageProps): ReactNode {
 	return (
-		<frame
-			key="KeybindsPage"
-			BackgroundColor3={Color3.fromRGB(0, 0, 0)}
-			BorderSizePixel={0}
-			Position={new UDim2(0, 12, 0, 12)}
-			Size={new UDim2(0, 1342, 0, 744)}
-		>
-			<frame
-				key="Group"
-				BackgroundColor3={Color3.fromRGB(0, 0, 0)}
-				BorderSizePixel={0}
-				Size={new UDim2(0, 1342, 0, 441)}
-			>
+		<FigmaFrame key={"KeybindsPage"} autoLayout={["Vertical", "TopLeft", PADDING.L]} size={["Fill", "Fill"]}>
+			<FigmaFrame key="Group" autoLayout={["Vertical", "TopLeft", PADDING.L]} size={["Fill", "Hug"]}>
 				<frame
 					key="KeybindSetting"
 					BackgroundColor3={Color3.fromRGB(0, 0, 0)}
@@ -342,7 +332,7 @@ export function KeybindsPage(props: MainMenuPageProps): ReactNode {
 						TextXAlignment={Enum.TextXAlignment.Left}
 					/>
 				</frame>
-			</frame>
-		</frame>
+			</FigmaFrame>
+		</FigmaFrame>
 	);
 }
