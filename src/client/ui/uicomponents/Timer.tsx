@@ -39,6 +39,9 @@ export function TimerText(props: { totalSeconds: number }): ReactNode {
 			})}
 			AnchorPoint={ANCHORS.CENTER_TOP}
 			Position={POSITIONSCALES.CENTER_TOP}
+			Visible={timer.value.map((value) => {
+				return props.totalSeconds - math.floor(value) <= 0 ? false : true;
+			})}
 		/>
 	);
 }
