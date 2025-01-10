@@ -6,6 +6,7 @@ import { ScreenProps } from "client/types/types.uitypes";
 import { createPadding } from "client/util/util.ui";
 import { UIStateActions } from "client/util/util.uistate-actions";
 import { PADDING } from "../uiconsts/uiconsts.padding";
+import FigmaCanvas from "../uicomponents/FigmaCanvas";
 
 export function MainMenuScreen(props: ScreenProps): ReactNode {
 	const [fadeBinding, fadeMotion] = useMotion<number>(0);
@@ -31,17 +32,16 @@ export function MainMenuScreen(props: ScreenProps): ReactNode {
 	}
 
 	return (
-		<canvasgroup
-			GroupTransparency={fadeBinding}
-			BackgroundTransparency={1}
-			BorderSizePixel={0}
-			Size={UDim2.fromScale(1, 1)}
+		<FigmaCanvas
+			size={["Fill", "Fill"]}
+			rbx={{
+				GroupTransparency: fadeBinding,
+			}}
 		>
-			{createPadding(PADDING.L)}
 			{MAIN_MENU_PAGES[currentPage]({
 				uiState: props.uiState,
 				fadeToPage: fadeToPage,
 			})}
-		</canvasgroup>
+		</FigmaCanvas>
 	);
 }

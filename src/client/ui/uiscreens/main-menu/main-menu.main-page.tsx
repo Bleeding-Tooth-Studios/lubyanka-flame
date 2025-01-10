@@ -10,7 +10,7 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 	return (
 		<FigmaFrame autoLayout={["Vertical", "TopLeft", 12]} size={["Fill", "Fill"]} pad={[PADDING.L, PADDING.L]}>
 			<textbutton
-				{...TEXT_STYLES.TITLE}
+				{...TEXT_STYLES.HUGE}
 				LayoutOrder={1}
 				Text={"The Fourth Recursion"}
 				key={"Title"}
@@ -20,7 +20,7 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				TextColor3={COLORS.WHITE}
 			/>
 			<textbutton
-				{...TEXT_STYLES.SCREENHEADERS}
+				{...TEXT_STYLES.SUBHEADING}
 				LayoutOrder={2}
 				Text={"Play"}
 				key={"Play"}
@@ -30,7 +30,7 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				TextColor3={COLORS.WHITE}
 			/>
 			<textbutton
-				{...TEXT_STYLES.SCREENHEADERS}
+				{...TEXT_STYLES.SUBHEADING}
 				LayoutOrder={3}
 				Text={"Loadout"}
 				key={"Loadout"}
@@ -40,7 +40,7 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				TextColor3={COLORS.WHITE}
 			/>
 			<textbutton
-				{...TEXT_STYLES.SCREENHEADERS}
+				{...TEXT_STYLES.SUBHEADING}
 				LayoutOrder={4}
 				Text={"Keybinds"}
 				key={"Keybinds"}
@@ -55,7 +55,7 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				}}
 			/>
 			<textbutton
-				{...TEXT_STYLES.SCREENHEADERS}
+				{...TEXT_STYLES.SUBHEADING}
 				LayoutOrder={5}
 				key={"Options"}
 				Text={"Options"}
@@ -65,7 +65,7 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				TextColor3={COLORS.WHITE}
 			/>
 			<textbutton
-				{...TEXT_STYLES.SCREENHEADERS}
+				{...TEXT_STYLES.SUBHEADING}
 				LayoutOrder={6}
 				Text={"Credits"}
 				key={"Credits"}

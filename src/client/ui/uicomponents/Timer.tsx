@@ -31,7 +31,7 @@ export function TimerText(props: { totalSeconds: number }): ReactNode {
 	return (
 		<textlabel
 			key="TimerText"
-			{...TEXT_STYLES.MEDIUM}
+			{...TEXT_STYLES.BODY}
 			Text={timer.value.map((value) => formatSeconds(math.floor(value), props.totalSeconds))}
 			BackgroundColor3={Color3.fromRGB(255, 0, 0)}
 			TextColor3={timer.value.map((value) => {

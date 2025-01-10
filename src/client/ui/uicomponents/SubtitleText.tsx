@@ -8,7 +8,7 @@ export function SubtitleText(props: InstanceProps<TextLabel>): ReactNode {
 	return (
 		<textlabel
 			{...props}
-			{...TEXT_STYLES.MEDIUM}
+			{...TEXT_STYLES.BODY}
 			RichText={true}
 			BackgroundTransparency={1}
 			BorderSizePixel={0}

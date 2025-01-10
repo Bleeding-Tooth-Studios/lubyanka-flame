@@ -1,23 +1,24 @@
-import React, { InstanceProps } from "@rbxts/react";
+import React from "@rbxts/react";
 import { FigmaProps } from "client/types/types.uitypes";
 import { Figma } from "client/util/util.ui";
+import FigmaGeneric from "./FigmaGeneric";
 
-function FigmaFrame(props: FigmaProps<Frame>) {
+function FigmaCanvas(props: FigmaProps<CanvasGroup>) {
 	const { autoLayout, children, pad, rbx, size } = props;
 
 	return (
-		<frame
-			key={"FigmaFrame"}
+		<canvasgroup
 			{...rbx}
+			key={"FigmaFrame"}
 			{...(size && Figma.size(...size))}
-			BorderSizePixel={0}
 			BackgroundTransparency={1}
+			BorderSizePixel={0}
 		>
 			{autoLayout && Figma.createAutoLayout(...autoLayout)}
 			{pad && Figma.createPad(...pad)}
 			{children}
-		</frame>
+		</canvasgroup>
 	);
 }
 
-export default FigmaFrame;
+export default FigmaCanvas;

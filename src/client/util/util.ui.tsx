@@ -27,15 +27,16 @@ export namespace Figma {
 		};
 	}
 
-	export function pad(sizeX: number, sizeY: number): JSX.Element {
-		return (
-			<uipadding
-				PaddingTop={new UDim(0, sizeY)}
-				PaddingBottom={new UDim(0, sizeY)}
-				PaddingLeft={new UDim(0, sizeX)}
-				PaddingRight={new UDim(0, sizeX)}
-			/>
-		);
+	export function pad(
+		sizeX: number,
+		sizeY: number,
+	): Pick<InstanceProps<UIPadding>, "PaddingTop" | "PaddingBottom" | "PaddingLeft" | "PaddingRight"> {
+		return {
+			PaddingTop: new UDim(0, sizeY),
+			PaddingBottom: new UDim(0, sizeY),
+			PaddingLeft: new UDim(0, sizeX),
+			PaddingRight: new UDim(0, sizeX),
+		};
 	}
 
 	type modeData = {
@@ -101,5 +102,22 @@ export namespace Figma {
 			...alignModes[align],
 			Padding: new UDim(0, space),
 		};
+	}
+
+	export function textAlign(
+		horizontalAlignment: InstanceProps<TextLabel>["TextXAlignment"],
+		verticalAlignment: InstanceProps<TextLabel>["TextYAlignment"],
+	): Pick<InstanceProps<TextLabel>, "TextXAlignment" | "TextYAlignment"> {
+		return {
+			TextXAlignment: horizontalAlignment,
+			TextYAlignment: verticalAlignment,
+		};
+	}
+
+	export function createPad(...args: Parameters<typeof pad>): ReactNode {
+		return <uipadding {...pad(...args)} />;
+	}
+	export function createAutoLayout(...args: Parameters<typeof autoLayout>): ReactNode {
+		return <uilistlayout {...autoLayout(...args)} />;
 	}
 }

@@ -8,9 +8,7 @@ import { SubtitleData } from "shared/types/types.subtitle";
 import { Atom } from "@rbxts/charm";
 import { TimerText } from "../uicomponents/Timer";
 
-
-
-export type InGamePageProps = { healthProgress: number; subtitlesQueue: Atom<SubtitleData[]>, timerSeconds: number};
+export type InGamePageProps = { healthProgress: number; subtitlesQueue: Atom<SubtitleData[]>; timerSeconds: number };
 export function InGamePage(props: InGamePageProps): ReactNode {
 	const { healthProgress, subtitlesQueue: subtitles, timerSeconds } = props;
 
@@ -29,7 +27,7 @@ export function InGamePage(props: InGamePageProps): ReactNode {
 					AnchorPoint: ANCHORS.LEFT_BOTTOM,
 				}}
 			/>
-			<TimerText totalSeconds={timerSeconds}/>
+			<TimerText totalSeconds={timerSeconds} />
 		</frame>
 	);
 }

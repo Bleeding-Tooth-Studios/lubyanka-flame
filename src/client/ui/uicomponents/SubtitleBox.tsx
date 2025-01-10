@@ -32,7 +32,7 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 		return (
 			<textlabel
 				key={"SubtitleText"}
-				{...TEXT_STYLES.MEDIUM}
+				{...TEXT_STYLES.BODY}
 				Text={data.text}
 				TextColor3={data.color}
 				RichText={true}
