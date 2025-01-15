@@ -5,7 +5,7 @@ import { SubtitleBox } from "../uicomponents/SubtitleBox";
 import { PADDING } from "../uiconsts/uiconsts.padding";
 import { ANCHORS, POSITIONSCALES } from "../uiconsts/uiconsts.util";
 import { TimerText } from "../uicomponents/Timer";
-import FigmaFrame from "../uicomponents/FigmaFrame";
+import { FigmaFrame } from "../uicomponents/FigmaPrototype";
 
 export function InGameScreen(props: ScreenProps): ReactNode {
 	const { subtitlesQueue: subtitles } = props;

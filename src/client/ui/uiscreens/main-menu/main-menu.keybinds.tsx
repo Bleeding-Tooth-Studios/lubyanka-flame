@@ -1,32 +1,34 @@
 import React, { ReactNode } from "@rbxts/react";
 import { MainMenuPageProps } from "client/types/types.uitypes";
-import FigmaFrame from "client/ui/uicomponents/FigmaFrame";
-import FigmaText from "client/ui/uicomponents/FigmaText";
-import FigmaTextButton from "client/ui/uicomponents/FigmaTextButton";
+import { FigmaFrame, FigmaTextButton, FigmaTextLabel } from "client/ui/uicomponents/FigmaPrototype";
 import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
 import { FONTS } from "client/ui/uiconsts/uiconsts.util";
 
 export function KeybindsPage(props: MainMenuPageProps): ReactNode {
 	return (
 		<FigmaFrame key={"KeybindsPage"} autoLayout={["Vertical", "TopLeft", PADDING.L]} size={["Fill", "Fill"]}>
-			<FigmaFrame key={"Group"} autoLayout={["Vertical", "TopLeft", PADDING.L]} size={["Fill", "Hug"]}>
+			<FigmaFrame
+				key={"Group"}
+				autoLayout={["Vertical", "TopLeft", PADDING.L]}
+				pad={[PADDING.L, PADDING.L]}
+				size={["Fill", "Hug"]}
+			>
 				<FigmaFrame
 					key={"Topbar"}
 					rbx={{
 						BackgroundColor3: Color3.fromRGB(0, 0, 0),
 						BorderSizePixel: 0,
 						Position: new UDim2(0, 10, 0, 10),
-						Size: new UDim2(0, 1322, 0, 41),
 					}}
 				>
 					<FigmaTextButton
 						key={"BackButton"}
 						size={["Hug", "Hug"]}
+						font_style="SUBHEADING"
 						rbx={{
 							BackgroundTransparency: 1,
 							Font: Enum.Font.Unknown,
 							FontFace: FONTS.LORA,
-							Size: new UDim2(0, 71, 0, 41),
 							Text: "Back",
 							TextColor3: Color3.fromRGB(255, 255, 255),
 							TextSize: 32,
@@ -38,7 +40,7 @@ export function KeybindsPage(props: MainMenuPageProps): ReactNode {
 							},
 						}}
 					/>
-					<FigmaText
+					<FigmaTextLabel
 						key={"KeybindsText"}
 						size={["Hug", "Hug"]}
 						rbx={{
@@ -46,7 +48,6 @@ export function KeybindsPage(props: MainMenuPageProps): ReactNode {
 							Font: Enum.Font.Unknown,
 							FontFace: FONTS.LORA,
 							Position: new UDim2(0, 1185, 0, 0),
-							Size: new UDim2(0, 137, 0, 41),
 							Text: "Keybinds",
 							TextColor3: Color3.fromRGB(255, 255, 255),
 							TextSize: 32,

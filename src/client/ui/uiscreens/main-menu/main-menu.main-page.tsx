@@ -4,7 +4,7 @@ import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
 import { TEXT_STYLES } from "client/ui/uiconsts/uiconsts.textstyles";
 import { MainMenuPageProps } from "client/types/types.uitypes";
 import { UIStateActions } from "client/util/util.uistate-actions";
-import FigmaFrame from "client/ui/uicomponents/FigmaFrame";
+import { FigmaFrame } from "client/ui/uicomponents/FigmaPrototype";
 
 export function MainPage(props: MainMenuPageProps): ReactNode {
 	return (

@@ -118,6 +118,6 @@ export namespace Figma {
 		return <uipadding {...pad(...args)} />;
 	}
 	export function createAutoLayout(...args: Parameters<typeof autoLayout>): ReactNode {
-		return <uilistlayout {...autoLayout(...args)} />;
+		return <uilistlayout {...autoLayout(...args)} SortOrder={"LayoutOrder"} />;
 	}
 }

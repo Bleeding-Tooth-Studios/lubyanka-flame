@@ -3,10 +3,8 @@ import React, { ReactNode } from "@rbxts/react";
 import { useAtom } from "@rbxts/react-charm";
 import { MAIN_MENU_PAGES } from "client/consts/consts.menu-pages";
 import { ScreenProps } from "client/types/types.uitypes";
-import { createPadding } from "client/util/util.ui";
 import { UIStateActions } from "client/util/util.uistate-actions";
-import { PADDING } from "../uiconsts/uiconsts.padding";
-import FigmaCanvas from "../uicomponents/FigmaCanvas";
+import { FigmaCanvasGroup } from "../uicomponents/FigmaPrototype";
 
 export function MainMenuScreen(props: ScreenProps): ReactNode {
 	const [fadeBinding, fadeMotion] = useMotion<number>(0);
@@ -32,7 +30,7 @@ export function MainMenuScreen(props: ScreenProps): ReactNode {
 	}
 
 	return (
-		<FigmaCanvas
+		<FigmaCanvasGroup
 			size={["Fill", "Fill"]}
 			rbx={{
 				GroupTransparency: fadeBinding,
@@ -42,6 +40,6 @@ export function MainMenuScreen(props: ScreenProps): ReactNode {
 				uiState: props.uiState,
 				fadeToPage: fadeToPage,
 			})}
-		</FigmaCanvas>
+		</FigmaCanvasGroup>
 	);
 }

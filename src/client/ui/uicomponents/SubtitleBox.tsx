@@ -11,6 +11,7 @@ import { useAtom } from "@rbxts/react-charm";
 import { SUBTITLEBOX_HEIGHT_INCREMENT } from "../uiconsts/uiconsts.subtitles";
 import { RunService } from "@rbxts/services";
 import { TEXT_STYLES } from "../uiconsts/uiconsts.textstyles";
+import { FigmaTextLabel } from "./FigmaPrototype";
 
 export type SubtitleBoxProps = {
 	subtitlesQueue: Atom<SubtitleData[]>;
@@ -30,18 +31,13 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 
 	const subtitlesChildren = subtitles.map((data) => {
 		return (
-			<textlabel
+			<FigmaTextLabel
 				key={"SubtitleText"}
-				{...TEXT_STYLES.BODY}
-				Text={data.text}
-				TextColor3={data.color}
-				RichText={true}
-				BackgroundTransparency={1}
-				Size={new UDim2(1, 0, 0, 18)}
-				BorderSizePixel={0}
-				AutomaticSize={"XY"}
-				TextYAlignment={"Center"}
-				TextXAlignment={"Left"}
+				font_style="BODY"
+				rbx={{
+					TextColor3: COLORS.WHITE,
+					Text: data.text,
+				}}
 			/>
 		);
 	});
