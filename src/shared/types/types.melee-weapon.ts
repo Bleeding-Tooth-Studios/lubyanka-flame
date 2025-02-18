@@ -1,6 +1,6 @@
-import { Weapon } from "./types.weapon";
+import { WeaponInstance as WeaponInstance } from "./types.weapon";
 
-export type MeleeWeapon = Weapon & {
+export type MeleeWeaponInstance = WeaponInstance & {
 	DamagePart: MeshPart;
 	Anims: Folder & {
 		HAttackStart: Animation;

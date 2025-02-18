@@ -1,14 +1,15 @@
 import React, { ReactNode } from "@rbxts/react";
+import { MainMenuPageProps } from "client/types/types.uitypes";
 import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
 import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
 import { TEXT_STYLES } from "client/ui/uiconsts/uiconsts.textstyles";
-import { MainMenuPageProps } from "client/types/types.uitypes";
-import { UIStateActions } from "client/util/util.uistate-actions";
-import { FigmaFrame } from "client/ui/uicomponents/FigmaPrototype";
+import { Figma } from "client/util/util.ui";
 
 export function MainPage(props: MainMenuPageProps): ReactNode {
 	return (
-		<FigmaFrame autoLayout={["Vertical", "TopLeft", 12]} size={["Fill", "Fill"]} pad={[PADDING.L, PADDING.L]}>
+		<frame {...Figma.size("Fill", "Fill")}>
+			{}
+			{Figma.createPad(PADDING.L, PADDING.L)}
 			<textbutton
 				{...TEXT_STYLES.HUGE}
 				LayoutOrder={1}
@@ -73,12 +74,7 @@ export function MainPage(props: MainMenuPageProps): ReactNode {
 				AutomaticSize={"XY"}
 				BorderSizePixel={0}
 				TextColor3={COLORS.WHITE}
-				Event={{
-					MouseButton1Click: (rbx) => {
-						props.fadeToPage("CREDITS_PAGE", 0.25);
-					},
-				}}
 			/>
-		</FigmaFrame>
+		</frame>
 	);
 }

@@ -1,3 +1,5 @@
+import { InstanceProps } from "@rbxts/react";
+
 const X_LEFT = 0;
 const X_CENTER = 0.5;
 const X_RIGHT = 1;
@@ -36,4 +38,14 @@ export namespace POSITIONSCALES {
 
 export namespace FONTS {
 	export const LORA: Font = Font.fromId(12187366657);
+}
+
+export namespace UIUTILS {
+	export const NOBACKGROUND = {
+		BackgroundTransparency: 1,
+	};
+
+	export const NOBORDER = {
+		BorderSizePixel: 0,
+	};
 }

@@ -1,5 +1,5 @@
 import { PlayerMaterials, PlayerEquipment } from "./types.inventory";
-import { Weapon } from "./types.weapon";
+import { WeaponInstance } from "./types.weapon";
 
 export type ProfileData = {
 	rank: number;
@@ -9,5 +9,5 @@ export type ProfileData = {
 export type PlayerInventory = {
 	playerEquipment: PlayerEquipment;
 	playerMaterials: PlayerMaterials;
-	equippedWeapon: Weapon | undefined;
+	equippedWeapon: WeaponInstance | undefined;
 };

@@ -1,4 +1,4 @@
-export type Weapon = Model & {
+export type WeaponInstance = Model & {
 	WeaponHandle: MeshPart & {
 		EquipWeld: Motor6D;
 	};

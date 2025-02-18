@@ -1,5 +1,5 @@
-import { MeleeWeapon } from "./types.melee-weapon";
-import { Weapon } from "./types.weapon";
+import { MeleeWeaponInstance } from "./types.melee-weapon";
+import { WeaponInstance } from "./types.weapon";
 
 export type PlayerInventory = {
 	playerEquipment: PlayerEquipment;
@@ -7,12 +7,13 @@ export type PlayerInventory = {
 };
 
 export type PlayerEquipment = {
-	meleeSlot: MeleeWeapon | undefined;
-	firearmSlot: Weapon | undefined;
-	utility1: Weapon | undefined;
-	utility2: Weapon | undefined;
-	utility3: Weapon | undefined;
-	utility4: Weapon | undefined;
+	meleeSlot: MeleeWeaponInstance | undefined;
+	firearmSlot: WeaponInstance | undefined;
+	idleSlot: MeleeWeaponInstance; //basically what is equipped when the player unequips their weapon
+	utility1: WeaponInstance | undefined;
+	utility2: WeaponInstance | undefined;
+	utility3: WeaponInstance | undefined;
+	utility4: WeaponInstance | undefined;
 };
 
 export type PlayerMaterials = {
@@ -21,3 +22,5 @@ export type PlayerMaterials = {
 	oilBottle: number;
 	soulStones: number;
 };
+
+export type PlayerEquipmentSlot = keyof PlayerEquipment;

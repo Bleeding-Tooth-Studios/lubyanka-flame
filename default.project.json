@@ -1,9 +1,6 @@
 {
 	"name": "flamework-game",
-	"globIgnorePaths": [
-		"**/package.json",
-		"**/tsconfig.json"
-	],
+	"globIgnorePaths": ["**/package.json", "**/tsconfig.json"],
 	"tree": {
 		"$className": "DataModel",
 		"ServerScriptService": {
@@ -28,6 +25,12 @@
 			},
 			"TS": {
 				"$path": "out/shared"
+			}
+		},
+		"ReplicatedFirst": {
+			"$className": "ReplicatedFirst",
+			"TS": {
+				"$path": "out/first"
 			}
 		},
 		"StarterPlayer": {

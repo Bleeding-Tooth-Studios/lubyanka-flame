@@ -1,4 +1,6 @@
 import React, { Children, InstanceProps, ReactNode } from "@rbxts/react";
+import { TextStyle } from "client/types/types.uitypes";
+import { TEXT_STYLES } from "client/ui/uiconsts/uiconsts.textstyles";
 
 export function createPadding(size: number): ReactNode {
 	return (
@@ -102,6 +104,10 @@ export namespace Figma {
 			...alignModes[align],
 			Padding: new UDim(0, space),
 		};
+	}
+
+	export function font_style(style: keyof typeof TEXT_STYLES): TextStyle {
+		return TEXT_STYLES[style];
 	}
 
 	export function textAlign(

@@ -1,105 +1,72 @@
 import React, { ReactNode } from "@rbxts/react";
 import { MainMenuPageProps } from "client/types/types.uitypes";
-import { FigmaFrame, FigmaTextButton, FigmaTextLabel } from "client/ui/uicomponents/FigmaPrototype";
+import { COLORS } from "client/ui/uiconsts/uiconsts.colors";
 import { PADDING } from "client/ui/uiconsts/uiconsts.padding";
-import { FONTS } from "client/ui/uiconsts/uiconsts.util";
+import { TEXT_STYLES } from "client/ui/uiconsts/uiconsts.textstyles";
+import { FONTS, UIUTILS } from "client/ui/uiconsts/uiconsts.util";
+import { Figma } from "client/util/util.ui";
 
 export function KeybindsPage(props: MainMenuPageProps): ReactNode {
 	return (
-		<FigmaFrame key={"KeybindsPage"} autoLayout={["Vertical", "TopLeft", PADDING.L]} size={["Fill", "Fill"]}>
-			<FigmaFrame
-				key={"Group"}
-				autoLayout={["Vertical", "TopLeft", PADDING.L]}
-				pad={[PADDING.L, PADDING.L]}
-				size={["Fill", "Hug"]}
-			>
-				<FigmaFrame
+		<frame key={"KeybindsPage"}>
+			{Figma.createAutoLayout("Vertical", "TopLeft", PADDING.L)}
+			<frame key={"Group"} {...Figma.size("Fill", "Hug")}>
+				{Figma.createAutoLayout("Vertical", "TopLeft", PADDING.L)}
+				{Figma.createPad(PADDING.L, PADDING.L)}
+				<frame
 					key={"Topbar"}
-					rbx={{
-						BackgroundColor3: Color3.fromRGB(0, 0, 0),
-						BorderSizePixel: 0,
-						Position: new UDim2(0, 10, 0, 10),
-					}}
+					{...Figma.size("Fill", "Hug")}
+					{...UIUTILS.NOBORDER}
+					BackgroundColor3={COLORS.BLACK}
 				>
-					<FigmaTextButton
+					<textbutton
 						key={"BackButton"}
-						size={["Hug", "Hug"]}
-						font_style="SUBHEADING"
-						rbx={{
-							BackgroundTransparency: 1,
-							Font: Enum.Font.Unknown,
-							FontFace: FONTS.LORA,
-							Text: "Back",
-							TextColor3: Color3.fromRGB(255, 255, 255),
-							TextSize: 32,
-							TextXAlignment: Enum.TextXAlignment.Left,
-							Event: {
-								MouseButton1Click: () => {
-									props.fadeToPage("MAIN_PAGE", 2);
-								},
+						{...Figma.size("Hug", "Hug")}
+						{...Figma.textAlign("Left", "Center")}
+						{...TEXT_STYLES["HEADING"]}
+						Text={"Back"}
+						TextColor3={COLORS.WHITE}
+						Event={{
+							MouseButton1Click: () => {
+								props.fadeToPage("MAIN_PAGE", 2);
 							},
 						}}
 					/>
-					<FigmaTextLabel
+					<textlabel
 						key={"KeybindsText"}
-						size={["Hug", "Hug"]}
-						rbx={{
-							BackgroundTransparency: 1,
-							Font: Enum.Font.Unknown,
-							FontFace: FONTS.LORA,
-							Position: new UDim2(0, 1185, 0, 0),
-							Text: "Keybinds",
-							TextColor3: Color3.fromRGB(255, 255, 255),
-							TextSize: 32,
-							TextXAlignment: Enum.TextXAlignment.Left,
-						}}
-					/>
-				</FigmaFrame>
-				<frame
-					key="Rectangle 1"
-					BackgroundColor3={Color3.fromRGB(217, 217, 217)}
-					BorderSizePixel={0}
-					Position={new UDim2(0, 10, 0, 61)}
-					Size={new UDim2(0, 1322, 0, 1)}
-				/>
-				<frame
-					key="KeybindSetting"
-					BackgroundColor3={Color3.fromRGB(51, 0, 0)}
-					BorderSizePixel={0}
-					Position={new UDim2(0, 10, 0, 72)}
-					Size={new UDim2(0, 1322, 0, 31)}
-				>
-					<textlabel
-						key="Action"
-						BackgroundTransparency={1}
-						Font={Enum.Font.Unknown}
-						FontFace={FONTS.LORA}
-						Size={new UDim2(0, 74, 0, 31)}
-						Text="Attack"
-						TextColor3={Color3.fromRGB(255, 255, 255)}
-						TextSize={24}
-						TextXAlignment={Enum.TextXAlignment.Left}
-					/>
-					<textlabel
-						key="Keybind"
-						BackgroundTransparency={1}
-						Font={Enum.Font.Unknown}
-						FontFace={FONTS.LORA}
-						Position={new UDim2(0, 1123, 0, 0)}
-						Size={new UDim2(0, 199, 0, 31)}
-						Text="MouseLeftButton"
-						TextColor3={Color3.fromRGB(255, 255, 255)}
-						TextSize={24}
-						TextXAlignment={Enum.TextXAlignment.Left}
+						{...Figma.size("Hug", "Hug")}
+						{...TEXT_STYLES["HEADING"]}
+						{...UIUTILS.NOBORDER}
+						Text={"Keybinds"}
+						TextColor3={COLORS.WHITE}
 					/>
 				</frame>
 				<frame
+					{...UIUTILS.NOBORDER}
+					{...Figma.size("Fill", "Hug")}
 					key="KeybindSetting"
-					BackgroundColor3={Color3.fromRGB(51, 0, 0)}
-					BorderSizePixel={0}
-					Position={new UDim2(0, 10, 0, 113)}
-					Size={new UDim2(0, 1322, 0, 31)}
+					BackgroundColor3={COLORS.DARKRED}
 				>
+					<textlabel
+						{...UIUTILS.NOBACKGROUND}
+						{...UIUTILS.NOBORDER}
+						{...TEXT_STYLES["SUBHEADING"]}
+						{...Figma.textAlign("Left", "Center")}
+						key="Action"
+						Text="Attack"
+						TextColor3={COLORS.WHITE}
+					/>
+					<textlabel
+						{...UIUTILS.NOBACKGROUND}
+						{...UIUTILS.NOBORDER}
+						{...TEXT_STYLES["SUBHEADING"]}
+						{...Figma.size("Hug", "Hug")}
+						key="Keybind"
+						Text="MouseLeftButton"
+						TextColor3={COLORS.WHITE}
+					/>
+				</frame>
+				<frame {...Figma.size("Fill", "Hug")} key="KeybindSetting" BackgroundColor3={Color3.fromRGB(51, 0, 0)}>
 					<textlabel
 						key="Action"
 						BackgroundTransparency={1}
@@ -341,7 +308,7 @@ export function KeybindsPage(props: MainMenuPageProps): ReactNode {
 						TextXAlignment={Enum.TextXAlignment.Left}
 					/>
 				</frame>
-			</FigmaFrame>
-		</FigmaFrame>
+			</frame>
+		</frame>
 	);
 }

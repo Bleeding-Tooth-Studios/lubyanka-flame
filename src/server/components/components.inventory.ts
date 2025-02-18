@@ -1,26 +1,27 @@
+import { BaseComponent, Component } from "@flamework/components";
 import { OnStart } from "@flamework/core";
-import { Component, BaseComponent, Components } from "@flamework/components";
-import { atom, Atom } from "@rbxts/charm";
-import { PlayerEquipment, PlayerMaterials } from "shared/types/types.inventory";
-import { Functions } from "server/network";
-import { Weapon } from "shared/types/types.weapon";
-import { ReplicatedStorage } from "@rbxts/services";
-import { MeleeWeapon } from "shared/types/types.melee-weapon";
-import { PlayerInventory } from "shared/types/types.player-data";
+import { atom, Atom, peek, subscribe } from "@rbxts/charm";
+import { deepCopy } from "@rbxts/object-utils";
 import { CharacterRigR6 } from "@rbxts/promise-character";
+import { ReplicatedStorage } from "@rbxts/services";
+import { PlayerEquipment, PlayerEquipmentSlot, PlayerMaterials } from "shared/types/types.inventory";
+import { MeleeWeaponInstance } from "shared/types/types.melee-weapon";
+import { PlayerInventory } from "shared/types/types.player-data";
+import { WeaponInstance } from "shared/types/types.weapon";
 import { WeaponData } from "shared/types/types.weapon-stats";
 import { weldWeapon } from "shared/util/util.weld-weapon";
 
 @Component({
 	tag: "player-inventory",
 })
-export class InventoryComponent extends BaseComponent<{}, Player> implements OnStart {
+export class InventoryComponent extends BaseComponent<{}, CharacterRigR6> implements OnStart {
 	public inventoryState: Atom<PlayerInventory> = atom<PlayerInventory>({
 		equippedWeapon: undefined,
 
 		playerEquipment: {
 			meleeSlot: undefined,
 			firearmSlot: undefined,
+			idleSlot: ReplicatedStorage.FindFirstChild("fists") as MeleeWeaponInstance,
 			utility1: undefined,
 			utility2: undefined,
 			utility3: undefined,
@@ -35,15 +36,20 @@ export class InventoryComponent extends BaseComponent<{}, Player> implements OnS
 		},
 	});
 
+	public equippedWeaponState = atom<WeaponInstance>(this.inventoryState().playerEquipment.idleSlot.Clone());
+	public equippedSlotState = atom<PlayerEquipmentSlot>("idleSlot");
+
 	readPlayerInventory(): PlayerInventory {
 		return this.inventoryState();
 	}
 
 	giveMelee(weaponId: string): void {
 		this.inventoryState((prev) => {
-			const inventoryClone = table.clone(prev);
+			const inventoryClone = deepCopy(prev);
 
-			inventoryClone.playerEquipment.meleeSlot = ReplicatedStorage.FindFirstChild(weaponId) as MeleeWeapon;
+			inventoryClone.playerEquipment.meleeSlot = ReplicatedStorage.FindFirstChild(
+				weaponId,
+			) as MeleeWeaponInstance;
 
 			print(`Player melee slot now filled with: ${inventoryClone.playerEquipment.meleeSlot}`);
 
@@ -51,48 +57,40 @@ export class InventoryComponent extends BaseComponent<{}, Player> implements OnS
 		});
 	}
 
-	giveMaterial(item: keyof PlayerMaterials, amount: number): void {
-		this.inventoryState((prev) => {
-			const inventoryClone = table.clone(prev);
+	equipSlot(slot: keyof PlayerEquipment): WeaponInstance {
+		if (slot === this.equippedSlotState()) slot = "idleSlot";
+		this.equippedSlotState(slot);
 
-			inventoryClone.playerMaterials[item] = inventoryClone.playerMaterials[item] + amount;
-
-			print(`Player material ${item} now has: ${inventoryClone.playerMaterials[item]}`);
-
-			return inventoryClone;
-		});
+		return peek(this.equippedWeaponState);
 	}
 
-	subtractMaterial(item: keyof PlayerMaterials, amount: number): void {
-		this.inventoryState((prev) => {
-			const inventoryClone = table.clone(prev);
-
-			inventoryClone.playerMaterials[item] = inventoryClone.playerMaterials[item] - amount;
-
-			print(`Player material ${item} now has: ${inventoryClone.playerMaterials[item]}`);
-
-			return inventoryClone;
-		});
-	}
-
-	equipSlot(slot: keyof PlayerEquipment): Weapon {
-		const targetWeapon = this.readPlayerInventory().playerEquipment[slot];
-
-		if (!targetWeapon) return error(`Slot ${slot} has no weapon!`);
+	private _handleWeaponState(currentWeapon: WeaponInstance, prevWeapon?: WeaponInstance): void {
+		if (prevWeapon) prevWeapon.Destroy();
 
 		const player = this.instance;
-		const character = player.Character as CharacterRigR6;
+		const character = this.instance;
 
-		if (!character) return error(`Player ${player.Name} has no character!`);
+		const weaponData = require(currentWeapon.weaponData) as WeaponData;
+		currentWeapon.Parent = character;
 
-		const weaponData = require(targetWeapon.weaponData) as WeaponData;
-		const clonedWeapon = targetWeapon.Clone();
-		clonedWeapon.Parent = character;
-
-		weldWeapon(clonedWeapon, character[weaponData.weldParent]);
-
-		return clonedWeapon;
+		weldWeapon(currentWeapon, character[weaponData.weldParent]);
 	}
 
-	onStart() {}
+	private _handleSlotState(currentSlot: PlayerEquipmentSlot): void {
+		let targetWeapon = this.readPlayerInventory().playerEquipment[currentSlot];
+
+		if (!targetWeapon) {
+			targetWeapon = this.inventoryState().playerEquipment.idleSlot;
+		}
+
+		this.equippedWeaponState(targetWeapon.Clone());
+	}
+
+	onStart() {
+		subscribe(this.equippedWeaponState, (currentWeapon, prevWeapon) =>
+			this._handleWeaponState(currentWeapon, prevWeapon),
+		);
+
+		subscribe(this.equippedSlotState, (currentSlot) => this._handleSlotState(currentSlot));
+	}
 }

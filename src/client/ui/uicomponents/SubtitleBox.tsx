@@ -1,17 +1,11 @@
-import React, { useBinding, useEffect, useRef } from "@rbxts/react";
-import { ReactNode } from "@rbxts/react";
-import { COLORS } from "../uiconsts/uiconsts.colors";
-import { ANCHORS } from "../uiconsts/uiconsts.util";
-import { SubtitleText } from "./SubtitleText";
-import { SubtitleData } from "shared/types/types.subtitle";
-import { PADDING } from "../uiconsts/uiconsts.padding";
-import { useMotion, useTimer } from "@rbxts/pretty-react-hooks";
-import { Atom, subscribe } from "@rbxts/charm";
+import { Atom } from "@rbxts/charm";
+import { useMotion } from "@rbxts/pretty-react-hooks";
+import React, { ReactNode, useEffect, useRef } from "@rbxts/react";
 import { useAtom } from "@rbxts/react-charm";
-import { SUBTITLEBOX_HEIGHT_INCREMENT } from "../uiconsts/uiconsts.subtitles";
-import { RunService } from "@rbxts/services";
-import { TEXT_STYLES } from "../uiconsts/uiconsts.textstyles";
-import { FigmaTextLabel } from "./FigmaPrototype";
+import { SubtitleData } from "shared/types/types.subtitle";
+import { COLORS } from "../uiconsts/uiconsts.colors";
+import { ANCHORS, UIUTILS } from "../uiconsts/uiconsts.util";
+import { Figma } from "client/util/util.ui";
 
 export type SubtitleBoxProps = {
 	subtitlesQueue: Atom<SubtitleData[]>;
@@ -25,19 +19,16 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 
 	const subtitleFrameRef = useRef<Frame>();
 
-	function updateHeightBinding(height: number) {
-		boxHeightMotion.spring(height, { mass: 0.01, friction: 10 });
-	}
-
 	const subtitlesChildren = subtitles.map((data) => {
 		return (
-			<FigmaTextLabel
+			<textlabel
 				key={"SubtitleText"}
-				font_style="BODY"
-				rbx={{
-					TextColor3: COLORS.WHITE,
-					Text: data.text,
-				}}
+				{...Figma.font_style("BODY")}
+				{...Figma.textAlign("Left", "Center")}
+				{...Figma.size("Fill", "Hug")}
+				TextColor3={COLORS.WHITE}
+				Text={data.text}
+				{...UIUTILS.NOBACKGROUND}
 			/>
 		);
 	});
@@ -66,33 +57,17 @@ export function SubtitleBox(props: SubtitleBoxProps): ReactNode {
 			ClipsDescendants={true}
 			ScaleType={"Slice"}
 			SliceCenter={new Rect(new Vector2(0, 0), new Vector2(650, 140))}
-			// eslint-disable-next-line roblox-ts/lua-truthiness
 			Visible={true}
 		>
 			<frame
-				ref={subtitleFrameRef}
 				key={"SubtitleTextFrame"}
 				Size={new UDim2(1, 0, 0, 0)}
 				Transparency={1}
 				BackgroundTransparency={1}
 				BorderSizePixel={0}
 				AutomaticSize={"Y"}
+				ref={subtitleFrameRef}
 			>
-				<uipadding
-					key={"SubtitleBoxPad"}
-					PaddingBottom={new UDim(0, PADDING.M)}
-					PaddingLeft={new UDim(0, PADDING.M)}
-					PaddingRight={new UDim(0, PADDING.M)}
-					PaddingTop={new UDim(0, PADDING.M)}
-				/>
-
-				<uilistlayout
-					key={"SubtitleListLayout"}
-					VerticalAlignment={"Top"}
-					HorizontalAlignment={"Left"}
-					Padding={new UDim(0, PADDING.M)}
-					FillDirection={"Vertical"}
-				/>
 				{...subtitlesChildren}
 			</frame>
 		</imagelabel>

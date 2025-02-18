@@ -1,4 +1,4 @@
-import { OnStart, Service } from "@flamework/core";
+import { OnInit, OnStart, Service } from "@flamework/core";
 import { CreateServer } from "@rbxts/wcs";
 import { MOVESETS_FOLDER } from "shared/combat/movesets";
 import { SKILLS_FOLDER } from "shared/combat/skills";

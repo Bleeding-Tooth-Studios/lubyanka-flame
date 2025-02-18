@@ -11,6 +11,7 @@ import { SKILLS_FOLDER } from "shared/combat/skills";
 import { Attack } from "shared/combat/skills/skills.attack";
 import { STATUSEFFECTS_FOLDER } from "shared/combat/status-effects";
 import { InputController } from "./controllers.input";
+import { INPUT_CONTEXTS, INPUT_DYNAMICS } from "client/consts/consts.input";
 
 @Controller({})
 export class CombatController implements OnStart, OnRender {
@@ -30,7 +31,7 @@ export class CombatController implements OnStart, OnRender {
 			axe_swing: "rbxassetid://78432586847389",
 		});
 
-		this.inputController.developerContext.Bind(["E"], () => {
+		INPUT_CONTEXTS.CHARACTER.Bind(INPUT_DYNAMICS.CHARACTER.lAttack, () => {
 			const character = getWCSCharacter();
 			if (!character) error("No WCS handle found for this character");
 			character.GetSkillFromConstructor(Attack)?.Start();
@@ -38,20 +39,28 @@ export class CombatController implements OnStart, OnRender {
 			Animation.loadAnimator((character.Instance as CharacterRigR6).Humanoid.Animator, bundle).axe_swing.Play();
 		});
 
-		this.inputController.developerContext.Bind(["Q"], () => {
+		INPUT_CONTEXTS.CHARACTER.Bind(INPUT_DYNAMICS.CHARACTER.meleeSlot, () => {
 			Functions.equipSlot("meleeSlot");
+		});
 
-			subtitlesQueue((prev) => {
-				const newQueue = table.clone(prev);
-				newQueue.unshift({
-					text: "The axe reeks of punishment.",
-					color: COLORS.WHITE,
-					duration: 5,
-					timeApplied: os.time(),
-				});
+		INPUT_CONTEXTS.CHARACTER.Bind(INPUT_DYNAMICS.CHARACTER.gunSlot, () => {
+			Functions.equipSlot("firearmSlot");
+		});
 
-				return newQueue;
-			});
+		INPUT_CONTEXTS.CHARACTER.Bind(INPUT_DYNAMICS.CHARACTER.itemSlot1, () => {
+			Functions.equipSlot("utility1");
+		});
+
+		INPUT_CONTEXTS.CHARACTER.Bind(INPUT_DYNAMICS.CHARACTER.itemSlot2, () => {
+			Functions.equipSlot("utility2");
+		});
+
+		INPUT_CONTEXTS.CHARACTER.Bind(INPUT_DYNAMICS.CHARACTER.itemSlot3, () => {
+			Functions.equipSlot("utility3");
+		});
+
+		INPUT_CONTEXTS.CHARACTER.Bind(INPUT_DYNAMICS.CHARACTER.itemSlot4, () => {
+			Functions.equipSlot("utility4");
 		});
 	}
 

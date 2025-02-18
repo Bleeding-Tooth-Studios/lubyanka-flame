@@ -1,13 +1,16 @@
 import { Networking } from "@flamework/networking";
 import { PlayerEquipment, PlayerInventory } from "./types/types.inventory";
-import { Weapon } from "./types/types.weapon";
+import { WeaponInstance } from "./types/types.weapon";
+import { CharacterWithHumanoid } from "./types/types.hostile";
 
 interface ClientToServerEvents {}
 
-interface ServerToClientEvents {}
+interface ServerToClientEvents {
+	bindHostileRender(hostile: CharacterWithHumanoid, target: CharacterWithHumanoid): void; //returns a signal that is used to end the connection
+}
 
 interface ClientToServerFunctions {
-	equipSlot(slot: keyof PlayerEquipment): Weapon;
+	equipSlot(slot: keyof PlayerEquipment): WeaponInstance;
 	readPlayerInventory(): PlayerInventory;
 }
 

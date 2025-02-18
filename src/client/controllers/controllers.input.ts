@@ -1,23 +1,15 @@
 import { Controller, OnStart } from "@flamework/core";
 import { CenturionUI } from "@rbxts/centurion-ui";
-import { Context } from "@rbxts/gamejoy";
+import { INPUT_CONTEXTS, INPUT_DYNAMICS } from "client/consts/consts.input";
+import { KeybindEntries } from "client/types/types.input";
 
 @Controller()
 export class InputController implements OnStart {
-	public developerContext = new Context({
-		ActionGhosting: 0,
-		OnBefore: () => true,
-		Process: false,
-		RunSynchronously: false,
-	});
-
-	public ingameContext = new Context();
-
 	onStart(): void {
-		print("Input Controller started");
-
-		this.developerContext.Bind("Backquote", () => {
+		INPUT_CONTEXTS.DEV.Bind(INPUT_DYNAMICS.DEV.openConsole, () => {
 			CenturionUI.setVisible(true);
 		});
+
+		print("Input Controller started");
 	}
 }

@@ -1,19 +1,18 @@
-import { InstanceProps, ReactNode } from "@rbxts/react";
-import { SubtitleData } from "shared/types/types.subtitle";
+import React, { InstanceProps, ReactNode } from "@rbxts/react";
 import { TEXT_STYLES } from "../uiconsts/uiconsts.textstyles";
-import { setInterval, setTimeout } from "@rbxts/set-timeout";
-import React from "@rbxts/react";
+import { Figma } from "client/util/util.ui";
+import { UIUTILS } from "../uiconsts/uiconsts.util";
 
 export function SubtitleText(props: InstanceProps<TextLabel>): ReactNode {
 	return (
 		<textlabel
 			{...props}
+			{...Figma.size("Hug", "Hug")}
 			{...TEXT_STYLES.BODY}
+			{...UIUTILS.NOBORDER}
+			{...UIUTILS.NOBACKGROUND}
+			{...Figma.textAlign("Left", "Center")}
 			RichText={true}
-			BackgroundTransparency={1}
-			BorderSizePixel={0}
-			AutomaticSize={"XY"}
-			TextYAlignment={"Center"}
 		/>
 	);
 }
